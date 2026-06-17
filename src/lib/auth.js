@@ -5,18 +5,19 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 const client = new MongoClient(process.env.MONGO_DB_URI);
 const db = client.db(process.env.AUTH_DB_NAME);
-
+console.log(process.env.MONGO_DB_URI,process.env.GOOGLE_CLIENT_ID,process.env.GOOGLE_CLIENT_SECRET);
 export const auth = betterAuth({
       emailAndPassword: { 
     enabled: true, 
 
       },
-     google: {
-        prompt: "select_account", 
+   socialProviders:{
+      google: {
         clientId: process.env.GOOGLE_CLIENT_ID ,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET ,
+        clientSecret: process.env.GOOGLE_SECRET_ID ,
   
   }, 
+   },
   database: mongodbAdapter(db, {
     // Optional: if you don't provide a client, database transactions won't be enabled.
     client

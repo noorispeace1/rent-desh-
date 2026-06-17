@@ -21,6 +21,7 @@ import { Eye, EyeSlash, Person, At, ShieldKeyhole, Picture } from "@gravity-ui/i
 
 // Better Auth Client (Make sure path is correct)
 import { authClient } from "@/lib/auth-client"; 
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -62,14 +63,17 @@ const SignUpPage = () => {
 
       if (authError) {
         setError(authError.message || "Failed to create account. Please try again.");
+        toast.error(authError.message || "Failed to create account. Please try again.");
       } else {
         setSuccess("Account created successfully! Redirecting...");
+        toast.success("Account created successfully! Redirecting...");
         setTimeout(() => {
-          router.push("/login");
+          router.push("/");
         }, 2000);
       }
     } catch (err) {
       setError("Something went wrong. Please try again later.");
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
@@ -84,10 +88,12 @@ const SignUpPage = () => {
       });
       if (error) {
         setError(error.message || "Google Sign-In failed.");
+        toast.error(error.message || "Google Sign-In failed.");
         setGoogleLoading(false);
       }
     } catch (err) {
       setError("Something went wrong with Google Sign-In.");
+      toast.error("Something went wrong with Google Sign-In.");
       setGoogleLoading(false);
     }
   };

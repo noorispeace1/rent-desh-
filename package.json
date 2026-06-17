@@ -12,7 +12,9 @@
     "@better-auth/mongo-adapter": "^1.6.19",
     "@gravity-ui/icons": "^2.18.0",
     "@gsap/react": "^2.1.2",
+    "@heroui/avatar": "^2.2.26",
     "@heroui/button": "^2.2.32",
+    "@heroui/dropdown": "^2.3.32",
     "@heroui/input": "^2.4.33",
     "@heroui/navbar": "^2.2.30",
     "@heroui/react": "^3.2.0",
@@ -23,8 +25,10 @@
     "lucide-react": "^1.20.0",
     "mongo": "^0.1.0",
     "next": "16.2.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react": "^19.2.4",
+    "react-dom": "19.2.4",
+    "react-toastify": "^11.1.0",
+    "toastify": "^2.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

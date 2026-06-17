@@ -21,6 +21,7 @@ import { Eye, EyeSlash, At, ShieldKeyhole } from "@gravity-ui/icons";
 
 // Better Auth Client (Make sure path is correct)
 import { authClient } from "@/lib/auth-client"; 
+import { toast } from "react-toastify";
 
 const SignInPage = () => {
   const router = useRouter();
@@ -61,14 +62,17 @@ const SignInPage = () => {
 
       if (authError) {
         setError(authError.message || "Invalid email or password.");
+        toast.error(authError.message || "Invalid email or password.");
       } else {
         setSuccess("Signed in successfully! Redirecting...");
+        toast.success("Signed in successfully! Redirecting...");
         setTimeout(() => {
-          router.push("/"); // লগিন সফল হলে ড্যাশবোর্ড বা হোম পেজে রিডাইরেক্ট করুন
+          router.push("/"); 
         }, 1500);
       }
     } catch (err) {
       setError("Something went wrong. Please try again later.");
+      toast.error("Something went wrong. Please try again later.");
     } finally {
       setLoading(false);
     }
