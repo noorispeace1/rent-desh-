@@ -1,0 +1,35 @@
+import { Geist, Geist_Mono } from "next/font/google";
+import "./globals.css";
+
+import Navbar from "@/component/Navbar";
+import Footer from "@/component/Footer";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+export const metadata = {
+  title: "RentDesh | Find Your Perfect Rental Property in Bangladesh",
+  description: "Discover verified apartments, sublets, mess rooms, and commercial spaces for rent across Bangladesh. Find your next home easily with RentDesh.",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        <Navbar></Navbar>
+        
+             {children}
+        <Footer></Footer>
+        </body>
+    </html>
+  );
+}
