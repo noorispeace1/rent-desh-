@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "@/lib/auth-client";
 import { toast } from "react-toastify";
-
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);

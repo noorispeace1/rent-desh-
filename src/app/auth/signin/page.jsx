@@ -139,10 +139,8 @@ const SignInPage = () => {
           {/* Email Field */}
           <TextField className="w-full flex flex-col">
             <Label className="text-[#5D4037] font-semibold text-sm mb-1.5 ml-1">Email Address</Label>
-            <InputGroup 
-              startContent={<At className="text-[#A1887F] w-5 h-5 ml-3" />}
-              className="w-full flex items-center border border-[#D7CCC8] hover:border-[#6D4C41] focus-within:border-[#009282] focus-within:ring-1 focus-within:ring-[#009282] rounded-xl transition-all h-12 bg-[#F9F6F4]"
-            >
+            <InputGroup className="w-full flex items-center border border-[#D7CCC8] hover:border-[#6D4C41] focus-within:border-[#009282] focus-within:ring-1 focus-within:ring-[#009282] rounded-xl transition-all h-12 bg-[#F9F6F4]">
+              <At className="text-[#A1887F] w-5 h-5 ml-3 shrink-0" />
               <Input 
                 type="email"
                 name="email"
@@ -163,20 +161,8 @@ const SignInPage = () => {
                 Forgot password?
               </Link>
             </div>
-            <InputGroup 
-              startContent={<ShieldKeyhole className="text-[#A1887F] w-5 h-5 ml-3" />}
-              endContent={
-                <button 
-                  type="button" 
-                  onClick={toggleVisibility} 
-                  className="focus:outline-none mr-3 text-[#A1887F] hover:text-[#5D4037] transition-colors flex items-center"
-                  aria-label="toggle password visibility"
-                >
-                  {isVisible ? <EyeSlash className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-                </button>
-              }
-              className="w-full flex items-center border border-[#D7CCC8] hover:border-[#6D4C41] focus-within:border-[#009282] focus-within:ring-1 focus-within:ring-[#009282] rounded-xl transition-all h-12 bg-[#F9F6F4]"
-            >
+            <InputGroup className="w-full flex items-center border border-[#D7CCC8] hover:border-[#6D4C41] focus-within:border-[#009282] focus-within:ring-1 focus-within:ring-[#009282] rounded-xl transition-all h-12 bg-[#F9F6F4]">
+              <ShieldKeyhole className="text-[#A1887F] w-5 h-5 ml-3 shrink-0" />
               <Input 
                 type={isVisible ? "text" : "password"}
                 name="password"
@@ -185,6 +171,14 @@ const SignInPage = () => {
                 onChange={handleChange}
                 className="w-full flex-1 px-3 bg-transparent text-[#3E2723] outline-none" 
               />
+              <button 
+                type="button" 
+                onClick={toggleVisibility} 
+                className="focus:outline-none mr-3 text-[#A1887F] hover:text-[#5D4037] transition-colors flex items-center shrink-0"
+                aria-label="toggle password visibility"
+              >
+                {isVisible ? <EyeSlash className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+              </button>
             </InputGroup>
             <FieldError />
           </TextField>
@@ -230,7 +224,7 @@ const SignInPage = () => {
         {/* Footer Link */}
         <p className="text-center text-sm text-[#795548] mt-6">
           Don't have an account?{" "}
-          <Link as={NextLink} href="/signup" className="text-[#009282] font-semibold hover:text-[#007a6c] hover:underline transition-all">
+          <Link as={NextLink} href="/auth/signup" className="text-[#009282] font-semibold hover:text-[#007a6c] hover:underline transition-all">
             Sign Up
           </Link>
         </p>
