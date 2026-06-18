@@ -1,0 +1,149 @@
+"use client";
+
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import PropertiseFilter from '@/component/dashboard/owner/PropertiseFilter';
+
+export default function PropertiesPage() {
+  const [properties, setProperties] = useState([]);
+  const [filteredProperties, setFilteredProperties] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProperties();
+  }, []);
+
+  const fetchProperties = async () => {
+    try {
+      setLoading(true);
+      const res = await fetch('http://localhost:5000/properties', { cache: 'no-store' });
+      if (res.ok) {
+        const data = await res.json();
+        setProperties(data);
+        setFilteredProperties(data); // initially, show all properties
+      }
+    } catch (error) {
+      console.error("Failed to fetch properties:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleFilter = (filters) => {
+    const filtered = properties.filter((property) => {
+      const matchesLocation = !filters.location || 
+        property.location?.toLowerCase().includes(filters.location.toLowerCase());
+      
+      const matchesType = !filters.propertyType || 
+        property.propertyType?.toLowerCase() === filters.propertyType.toLowerCase();
+      
+      const matchesMinPrice = !filters.minPrice || 
+        Number(property.monthlyRent) >= Number(filters.minPrice);
+      
+      const matchesMaxPrice = !filters.maxPrice || 
+        Number(property.monthlyRent) <= Number(filters.maxPrice);
+
+      return matchesLocation && matchesType && matchesMinPrice && matchesMaxPrice;
+    });
+    setFilteredProperties(filtered);
+  };
+
+  const handleClear = () => {
+    setFilteredProperties(properties);
+  };
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-[1200px] mx-auto p-4 sm:p-6 lg:p-8 min-h-[400px] flex flex-col items-center justify-center">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#009282] to-[#00b8a4] animate-pulse shadow-lg mb-4" />
+        <p className="text-[#9CA3AF] text-sm font-medium">Loading properties...</p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full max-w-[1200px] mx-auto p-4 sm:p-6 lg:p-8">
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1C1C1E] mb-2 tracking-tight">My Properties</h1>
+          <p className="text-[#6B7280] text-sm">Manage and view all your listed properties.</p>
+        </div>
+        <Link 
+          href="/dashboard/owner/property/add"
+          className="bg-[#009282] hover:bg-[#007A6C] text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all shadow-sm hover:shadow-md flex items-center gap-2"
+        >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+          Add New
+        </Link>
+      </div>
+
+      {/* Filter component */}
+      <PropertiseFilter onFilter={handleFilter} onClear={handleClear} />
+
+      {filteredProperties.length === 0 ? (
+        <div className="bg-white border border-[#E5E7EB] rounded-2xl p-12 text-center flex flex-col items-center justify-center min-h-[400px]">
+          <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
+            <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+          </div>
+          <h3 className="text-lg font-semibold text-[#1C1C1E] mb-2">No properties found</h3>
+          <p className="text-[#6B7280] text-sm max-w-sm mb-6">Start listing your properties or try refining your filters to reach potential tenants.</p>
+          <Link 
+            href="/dashboard/owner/property/add"
+            className="text-[#009282] font-semibold text-sm hover:underline"
+          >
+            + Add your first property
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {filteredProperties.map((property) => (
+            <div key={property._id} className="group bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="relative h-[240px] w-full bg-gray-100 overflow-hidden">
+                {property.imageUrl ? (
+                  <img 
+                    src={property.imageUrl} 
+                    alt={property.title} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center text-gray-400">
+                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                  </div>
+                )}
+                <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-bold text-[#1C1C1E] shadow-sm uppercase tracking-wide">
+                  {property.propertyType || "Property"}
+                </div>
+                <div className="absolute top-4 right-4 bg-[#009282] px-3 py-1 rounded-full text-xs font-bold text-white shadow-sm">
+                  ৳{property.monthlyRent}/mo
+                </div>
+              </div>
+              
+              <div className="p-5">
+                <h3 className="text-lg font-bold text-[#1C1C1E] mb-1.5 line-clamp-1">{property.title || "Untitled Property"}</h3>
+                <div className="flex items-center text-[#6B7280] text-sm mb-4">
+                  <svg className="w-4 h-4 mr-1.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                  <span className="line-clamp-1">{property.location || "Location not provided"}</span>
+                </div>
+                
+                <div className="flex items-center gap-4 py-4 border-t border-[#F3F4F6]">
+                  <div className="flex items-center gap-1.5 text-sm text-[#4B5563]">
+                    <svg className="w-4 h-4 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                    <span className="font-semibold">{property.bedroom || 0}</span> Beds
+                  </div>
+                  <div className="flex items-center gap-1.5 text-sm text-[#4B5563]">
+                    <svg className="w-4 h-4 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                    <span className="font-semibold">{property.bathroom || 0}</span> Baths
+                  </div>
+                  <div className="flex items-center gap-1.5 text-sm text-[#4B5563]">
+                    <svg className="w-4 h-4 text-[#9CA3AF]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                    <span className="font-semibold">{property.propertySize || 0}</span> sqft
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

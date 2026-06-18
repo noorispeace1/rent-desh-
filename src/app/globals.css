@@ -1,26 +1,145 @@
 @import "tailwindcss";
 
+/* ─── Light mode variables ─────────────────────────────────── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-base:       #ffffff;
+  --bg-surface:    #F9FAFB;
+  --bg-subtle:     #F3F4F6;
+  --bg-muted:      #E5E7EB;
+  --text-primary:  #1C1C1E;
+  --text-secondary:#374151;
+  --text-muted:    #6B7280;
+  --text-faint:    #9CA3AF;
+  --border:        #E5E7EB;
+  --border-light:  #F3F4F6;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.06);
+  --shadow-md:     0 4px 20px rgba(0,0,0,0.08);
+  color-scheme: light;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ─── Dark mode variables ──────────────────────────────────── */
+html.dark {
+  --bg-base:       #0f172a;
+  --bg-surface:    #1e293b;
+  --bg-subtle:     #1a2540;
+  --bg-muted:      #263352;
+  --text-primary:  #f1f5f9;
+  --text-secondary:#cbd5e1;
+  --text-muted:    #94a3b8;
+  --text-faint:    #64748b;
+  --border:        #2d3f5c;
+  --border-light:  #1e293b;
+  --shadow-sm:     0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:     0 4px 20px rgba(0,0,0,0.4);
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ─── Base overrides ───────────────────────────────────────── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Dark mode structural overrides ──────────────────────── */
+
+/* Navbar */
+html.dark nav {
+  background: rgba(15, 23, 42, 0.97) !important;
+  border-color: var(--border-light) !important;
+}
+
+/* Sidebar */
+html.dark aside {
+  background: var(--bg-surface) !important;
+  border-color: var(--border-light) !important;
+}
+
+/* Dashboard topbar */
+html.dark header {
+  background: rgba(15, 23, 42, 0.97) !important;
+  border-color: var(--border-light) !important;
+}
+
+/* White backgrounds → dark surface */
+html.dark .bg-white {
+  background-color: var(--bg-surface) !important;
+}
+
+/* Gray backgrounds */
+html.dark .bg-\[\#F9FAFB\] { background-color: var(--bg-base) !important; }
+html.dark .bg-\[\#F3F4F6\] { background-color: var(--bg-subtle) !important; }
+html.dark .bg-\[\#EFEBE9\] { background-color: var(--bg-subtle) !important; }
+html.dark .bg-\[\#F5F1EE\] { background-color: var(--bg-subtle) !important; }
+
+/* Text colors */
+html.dark .text-\[\#1C1C1E\]  { color: var(--text-primary) !important; }
+html.dark .text-\[\#374151\]  { color: var(--text-secondary) !important; }
+html.dark .text-\[\#3E2723\]  { color: var(--text-primary) !important; }
+html.dark .text-\[\#4E342E\]  { color: var(--text-primary) !important; }
+html.dark .text-\[\#5D4037\]  { color: var(--text-secondary) !important; }
+html.dark .text-\[\#6B7280\]  { color: var(--text-muted) !important; }
+html.dark .text-\[\#795548\]  { color: var(--text-muted) !important; }
+html.dark .text-\[\#9CA3AF\]  { color: var(--text-faint) !important; }
+
+/* Border colors */
+html.dark .border-\[\#E5E7EB\]  { border-color: var(--border) !important; }
+html.dark .border-\[\#F3F4F6\]  { border-color: var(--border-light) !important; }
+html.dark .border-\[\#EFEBE9\]  { border-color: var(--border) !important; }
+html.dark .border-\[\#D7CCC8\]  { border-color: var(--border) !important; }
+
+/* Hover bg overrides in dark */
+html.dark *:hover.hover\:bg-\[\#F9FAFB\] { background-color: var(--bg-subtle) !important; }
+
+/* Form inputs */
+html.dark input,
+html.dark select,
+html.dark textarea {
+  background-color: var(--bg-subtle) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--text-faint) !important;
+}
+
+/* Dropdown menus */
+html.dark [class*="shadow"] {
+  --tw-shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Scrollbar for dark mode */
+html.dark ::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+html.dark ::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-faint);
+}
+
+/* ─── Transition for all theme-affected elements ───────────── */
+html,
+html *,
+html *::before,
+html *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 200ms;
+  transition-timing-function: ease;
+}
+
+/* But don't slow down transforms/animations */
+html.dark [class*="animate"],
+html.dark [class*="transition-all"],
+html.dark [class*="transition-transform"] {
+  transition-duration: unset;
 }

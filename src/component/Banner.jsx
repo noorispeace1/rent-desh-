@@ -1,9 +1,16 @@
 "use client"; 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import gsap from 'gsap'; // Corrected Import
 import { MapPin, Home, DollarSign, Search, ChevronDown } from 'lucide-react';
 
 const Banner = () => {
+    const router = useRouter();
+    const [location, setLocation] = useState('');
+    const [propertyType, setPropertyType] = useState('');
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+
     const bannerRef = useRef(null);
     const headlineRef = useRef(null);
     const subheadRef = useRef(null);
@@ -70,6 +77,8 @@ const Banner = () => {
                         <input 
                             type="text" 
                             placeholder="Location" 
+                            value={location}
+                            onChange={(e) => setLocation(e.target.value)}
                             className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500 font-medium text-sm md:text-base" 
                         />
                     </div>
@@ -77,15 +86,16 @@ const Banner = () => {
                     {/* Property Type Dropdown */}
                     <div className="flex w-full md:w-1/4 items-center bg-white rounded-2xl px-4 py-3.5 relative transition-all focus-within:ring-2 focus-within:ring-gray-800">
                         <Home className="text-gray-400 w-5 h-5 mr-3" />
-                        {/* Fixed: Used defaultValue instead of selected in option */}
                         <select 
-                            defaultValue="" 
+                            value={propertyType}
+                            onChange={(e) => setPropertyType(e.target.value)}
                             className="w-full bg-transparent outline-none text-gray-800 cursor-pointer appearance-none font-medium text-sm md:text-base pr-8"
                         >
-                            <option value="" disabled>Property Type</option>
+                            <option value="">Property Type</option>
                             <option value="apartment">Apartment</option>
-                            <option value="villa">Villa</option>
+                            <option value="house">House</option>
                             <option value="commercial">Commercial</option>
+                            <option value="studio">Studio</option>
                         </select>
                         <ChevronDown className="absolute right-4 text-gray-500 w-4 h-4 pointer-events-none" />
                     </div>
@@ -96,6 +106,8 @@ const Banner = () => {
                         <input 
                             type="number" 
                             placeholder="Min Price" 
+                            value={minPrice}
+                            onChange={(e) => setMinPrice(e.target.value)}
                             className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500 font-medium text-sm md:text-base" 
                         />
                     </div>
@@ -106,12 +118,24 @@ const Banner = () => {
                         <input 
                             type="number" 
                             placeholder="Max Price" 
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
                             className="w-full bg-transparent outline-none text-gray-800 placeholder-gray-500 font-medium text-sm md:text-base" 
                         />
                     </div>
 
                     {/* Search Button */}
-                    <button className="w-full md:w-auto flex-1 bg-gray-900 hover:bg-black text-white rounded-2xl px-6 py-3.5 flex items-center justify-center font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95 text-sm md:text-base">
+                    <button 
+                        onClick={() => {
+                            const params = new URLSearchParams();
+                            if (location) params.set('location', location);
+                            if (propertyType) params.set('propertyType', propertyType);
+                            if (minPrice) params.set('minPrice', minPrice);
+                            if (maxPrice) params.set('maxPrice', maxPrice);
+                            router.push(`/properties?${params.toString()}`);
+                        }}
+                        className="w-full md:w-auto flex-1 bg-gray-900 hover:bg-black text-white rounded-2xl px-6 py-3.5 flex items-center justify-center font-semibold transition-all shadow-lg hover:shadow-xl active:scale-95 text-sm md:text-base"
+                    >
                         <Search className="w-5 h-5 mr-2" />
                         Search
                     </button>
