@@ -12,6 +12,7 @@ export default function BookingModalButton({ propertyId, propertyTitle, monthlyR
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [bookingDate, setBookingDate] = useState("");
+  const [additionalNotes, setAdditionalNotes] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Set default values when session or modal loads
@@ -42,7 +43,8 @@ export default function BookingModalButton({ propertyId, propertyTitle, monthlyR
 
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/bookings", {
+      // Redirect to Stripe checkout
+      const res = await fetch("/api/checkout-sessions", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,18 +57,23 @@ export default function BookingModalButton({ propertyId, propertyTitle, monthlyR
           email,
           phone,
           bookingDate,
+          additionalNotes,
         }),
       });
 
       if (!res.ok) {
-        throw new Error("Failed to submit booking request");
+        throw new Error("Failed to create Stripe checkout session");
       }
 
-      toast.success("Booking requested successfully!");
-      setIsOpen(false);
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("Stripe session URL is missing");
+      }
     } catch (error) {
-      console.error("Error creating booking:", error);
-      toast.error("Booking submission failed. Please try again.");
+      console.error("Error creating Stripe session:", error);
+      toast.error(error.message || "Redirect to Stripe failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -173,6 +180,20 @@ export default function BookingModalButton({ propertyId, propertyTitle, monthlyR
                       onChange={(e) => setBookingDate(e.target.value)}
                       required
                       className="w-full bg-transparent outline-none text-[#1C1C1E] font-medium text-sm cursor-pointer"
+                    />
+                  </div>
+                </div>
+
+                {/* Additional Notes */}
+                <div className="space-y-1 sm:col-span-2">
+                  <label className="text-[11px] font-bold text-gray-500 uppercase tracking-wider">Additional Notes</label>
+                  <div className="bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 focus-within:border-[#009282] transition-colors">
+                    <textarea
+                      placeholder="Enter any additional requests or notes..."
+                      value={additionalNotes}
+                      onChange={(e) => setAdditionalNotes(e.target.value)}
+                      rows={2}
+                      className="w-full bg-transparent outline-none text-[#1C1C1E] font-medium text-sm resize-none"
                     />
                   </div>
                 </div>

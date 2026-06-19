@@ -69,10 +69,7 @@ const Footer = () => {
                 variant="bordered"
                 radius="lg"
                 size="md"
-                classNames={{
-                  inputWrapper: "bg-white border-[#D7CCC8] hover:border-[#6D4C41] data-[focus=true]:border-[#6D4C41] data-[focus=true]:ring-1 data-[focus=true]:ring-[#6D4C41] shadow-sm pr-12 transition-all",
-                  input: "text-[#5D4037] placeholder:text-[#A1887F]",
-                }}
+                className="bg-white text-[#5D4037] placeholder:text-[#A1887F] shadow-sm pr-12 transition-all"
               />
               <Button 
                 isIconOnly 

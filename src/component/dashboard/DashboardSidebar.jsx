@@ -14,7 +14,7 @@ const tenantNav = [
       { label: "Overview", href: "/dashboard/tenant", icon: GridIcon },
       { label: "My Bookings", href: "/dashboard/tenant/my-bookings", icon: FileIcon },
       { label: "Favorites", href: "/dashboard/tenant/favorites", icon: HeartIcon },
-      { label: "Profile", href: "/dashboard/tenant/profile", icon: UserIcon },
+      { label: "Profile", href: "/dashboard/profile", icon: UserIcon },
     ],
   },
 ];
@@ -40,6 +40,7 @@ const ownerNav = [
     group: "Finance",
     items: [
       { label: "Rent Collected", href: "/dashboard/owner/rent", icon: WalletIcon },
+      { label: "Transactions", href: "/dashboard/owner/transactions", icon: ReceiptIcon },
       { label: "Analytics", href: "/dashboard/owner/analytics", icon: ChartIcon },
     ],
   },
@@ -47,7 +48,7 @@ const ownerNav = [
     group: "Account",
     items: [
       { label: "Messages", href: "/dashboard/owner/messages", icon: ChatIcon },
-      { label: "Profile", href: "/dashboard/owner/profile", icon: UserIcon },
+      { label: "Profile", href: "/dashboard/profile", icon: UserIcon },
       { label: "Settings", href: "/dashboard/owner/settings", icon: CogIcon },
     ],
   },
@@ -61,7 +62,8 @@ const adminNav = [
       { label: "Users", href: "/dashboard/admin/users", icon: UsersIcon },
       { label: "Properties", href: "/dashboard/admin/properties", icon: BuildingIcon },
       { label: "Bookings", href: "/dashboard/admin/bookings", icon: CalendarIcon },
-      { label: "Profile", href: "/dashboard/admin/profile", icon: UserIcon },
+      { label: "Transactions", href: "/dashboard/admin/transactions", icon: ReceiptIcon },
+      { label: "Profile", href: "/dashboard/profile", icon: UserIcon },
     ],
   },
 ];
@@ -398,6 +400,14 @@ function CloseIcon({ className }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
       <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    </svg>
+  );
+}
+
+function ReceiptIcon({ className }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M4 2v20l2-2 2 2 2-2 2 2 2-2 2 2 2-2 2 2V2H4z"/><line x1="16" y1="8" x2="8" y2="8"/><line x1="16" y1="12" x2="8" y2="12"/><line x1="10" y1="16" x2="8" y2="16"/>
     </svg>
   );
 }

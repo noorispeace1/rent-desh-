@@ -63,7 +63,7 @@ const SignUpPage = () => {
         setSuccess("Account created successfully! Redirecting...");
         toast.success("Account created successfully!");
         setTimeout(() => {
-          router.push("/");
+          window.location.href = "/dashboard";
         }, 1500);
       }
     } catch (err) {
@@ -78,7 +78,10 @@ const SignUpPage = () => {
     setGoogleLoading(true);
     setError("");
     try {
-      const { data, error } = await authClient.signIn.social({ provider: "google" });
+      const { data, error } = await authClient.signIn.social({ 
+        provider: "google",
+        callbackURL: "/dashboard"
+      });
       if (error) {
         setError(error.message || "Google Sign-In failed.");
         toast.error(error.message || "Google Sign-In failed.");

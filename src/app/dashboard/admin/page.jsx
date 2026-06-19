@@ -122,8 +122,8 @@ export default function AdminDashboard() {
           colorClass="bg-[#6366f1]" 
         />
         <StatCard 
-          title="Platform Value" 
-          value={`৳${(stats?.totalProperties || 0) * 25000}`} 
+          title="Total Transactions" 
+          value={`৳${stats?.totalTransactions || 0}`} 
           change="+10.8%" 
           icon={DollarSign} 
           colorClass="bg-[#f59e0b]" 
