@@ -22,6 +22,10 @@ function PropertiesContent() {
     maxPrice: searchParams.get('maxPrice') || '',
   });
 
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
+
   useEffect(() => {
     // Sync filters with URL updates if needed
     setFilters({
@@ -30,6 +34,8 @@ function PropertiesContent() {
       minPrice: searchParams.get('minPrice') || '',
       maxPrice: searchParams.get('maxPrice') || '',
     });
+    // Reset to page 1 when filters change
+    setCurrentPage(1);
   }, [searchParams]);
 
   useEffect(() => {
@@ -40,7 +46,7 @@ function PropertiesContent() {
     try {
       setLoading(true);
       // Fetch properties
-      const propsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`);
+      const propsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/public`);
       if (propsRes.ok) {
         const propsData = await propsRes.json();
         setProperties(propsData);
@@ -63,6 +69,7 @@ function PropertiesContent() {
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
+    setCurrentPage(1);
   };
 
   const handleClearFilters = () => {
@@ -72,6 +79,7 @@ function PropertiesContent() {
       minPrice: '',
       maxPrice: '',
     });
+    setCurrentPage(1);
   };
 
   // Filter properties logic
@@ -90,6 +98,16 @@ function PropertiesContent() {
 
     return matchesLocation && matchesType && matchesMinPrice && matchesMaxPrice;
   });
+
+  // Pagination logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredProperties.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredProperties.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+  const handlePrevious = () => { if (currentPage > 1) setCurrentPage(currentPage - 1); };
+  const handleNext = () => { if (currentPage < totalPages) setCurrentPage(currentPage + 1); };
 
   if (loading) {
     return (
@@ -131,8 +149,9 @@ function PropertiesContent() {
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {filteredProperties.map((property) => (
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+            {currentItems.map((property) => (
             <div key={property._id} className="group bg-white rounded-2xl border border-[#E5E7EB] overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative">
               <div className="relative h-[240px] w-full bg-gray-100 overflow-hidden">
                 {property.imageUrl ? (
@@ -148,7 +167,7 @@ function PropertiesContent() {
                     </svg>
                   </div>
                 )}
-                <div className="absolute top-4 left-4 bg-green-300 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-extrabold text-green-900 shadow-sm uppercase tracking-wide">
+                <div className="absolute top-4 left-4 bg-[#009282] px-3 py-1 rounded-full text-xs font-extrabold text-white shadow-sm uppercase tracking-wide">
                   {property.propertyType || "Property"}
                 </div>
                 
@@ -203,7 +222,47 @@ function PropertiesContent() {
               </div>
             </div>
           ))}
-        </div>
+          </div>
+
+          {/* Pagination */}
+          {totalPages > 0 && (
+            <div className="flex items-center justify-center gap-1.5 py-6 mt-8 border-t border-[#E5E7EB]">
+              <button 
+                onClick={handlePrevious}
+                disabled={currentPage === 1}
+                className="text-[14px] font-medium text-[#6B7280] hover:text-[#1C1C1E] disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 mr-2 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7" /></svg>
+                Previous
+              </button>
+              
+              <div className="flex items-center gap-1">
+                {[...Array(totalPages)].map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => handlePageChange(i + 1)}
+                    className={`min-w-[32px] h-[32px] px-2 flex items-center justify-center rounded-lg text-[14px] transition-all ${
+                      currentPage === i + 1 
+                        ? 'bg-[#009282] text-white font-bold shadow-sm' 
+                        : 'text-[#6B7280] hover:bg-gray-100 font-medium'
+                    }`}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+
+              <button 
+                onClick={handleNext}
+                disabled={currentPage === totalPages}
+                className="text-[14px] font-medium text-[#6B7280] hover:text-[#1C1C1E] disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-1 ml-2 transition-colors"
+              >
+                Next
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7" /></svg>
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

@@ -95,6 +95,8 @@ const AddPropertyForm = () => {
     const propertyData = {
       ...formData,
       imageUrl,
+      ownerEmail: session?.user?.email,
+      ownerName: session?.user?.name,
       createdAt: new Date().toISOString()
     };
 

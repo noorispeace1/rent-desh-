@@ -33,7 +33,7 @@ const ownerNav = [
     group: "Tenants & Bookings",
     items: [
       { label: "Applications", href: "/dashboard/owner/applications", icon: FileIcon },
-      { label: "My Tenants", href: "/dashboard/owner/tenants", icon: UsersIcon },
+      { label: "Bookings", href: "/dashboard/owner/bookings", icon: UsersIcon },
       { label: "Lease Agreements", href: "/dashboard/owner/leases", icon: DocumentIcon },
     ],
   },

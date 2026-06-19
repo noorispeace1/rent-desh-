@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic';
 
 async function getProperties() {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`, { cache: 'no-store' });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/public`, { cache: 'no-store' });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
@@ -90,7 +90,7 @@ export default async function Home() {
                   )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
-                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full text-[11px] font-black text-[#1C1C1E] shadow-sm uppercase tracking-wider">
+                  <div className="absolute top-4 left-4 bg-[#009282] px-3 py-1.5 rounded-full text-[11px] font-black text-white shadow-sm uppercase tracking-wider">
                     {property.propertyType || "Property"}
                   </div>
                   

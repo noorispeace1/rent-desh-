@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import { Building, Check, Trash2, ChevronLeft, ChevronRight, RefreshCw } from "lucide-react";
+import { Building, Check, Trash2, Edit2, ChevronLeft, ChevronRight, RefreshCw, X } from "lucide-react";
 
 const PAGE_SIZE = 10;
 
@@ -11,6 +11,10 @@ export default function AdminPropertiesPage() {
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [actionLoadingId, setActionLoadingId] = useState(null);
+  
+  // Edit Modal State
+  const [editingProperty, setEditingProperty] = useState(null);
+  const [editForm, setEditForm] = useState({ title: '', location: '', monthlyRent: '', propertyType: '' });
 
   useEffect(() => {
     fetchProperties();
@@ -19,7 +23,7 @@ export default function AdminPropertiesPage() {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/public`);
       if (res.ok) {
         const data = await res.json();
         setProperties(data);
@@ -82,6 +86,42 @@ export default function AdminPropertiesPage() {
     }
   };
 
+  const openEditModal = (property) => {
+    setEditingProperty(property);
+    setEditForm({
+      title: property.title || '',
+      location: property.location || '',
+      monthlyRent: property.monthlyRent || '',
+      propertyType: property.propertyType || ''
+    });
+  };
+
+  const handleEditSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setActionLoadingId(editingProperty._id);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/${editingProperty._id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editForm)
+      });
+      const data = await res.json();
+      
+      if (data.success) {
+        toast.success("Property updated successfully!");
+        setProperties(prev => prev.map(p => p._id === editingProperty._id ? { ...p, ...editForm } : p));
+        setEditingProperty(null);
+      } else {
+        throw new Error(data.error || "Failed to update property");
+      }
+    } catch (error) {
+      console.error("Error updating property:", error);
+      toast.error(error.message || "Failed to update property");
+    } finally {
+      setActionLoadingId(null);
+    }
+  };
+
   // Pagination logic
   const totalPages = Math.ceil(properties.length / PAGE_SIZE);
   const startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -103,7 +143,72 @@ export default function AdminPropertiesPage() {
   }
 
   return (
-    <div className="flex flex-col gap-6 max-w-6xl w-full mx-auto">
+    <div className="flex flex-col gap-6 max-w-6xl w-full mx-auto relative">
+      {/* Edit Modal */}
+      {editingProperty && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-3xl p-6 w-full max-w-md shadow-2xl relative animate-in fade-in zoom-in duration-200">
+            <button 
+              onClick={() => setEditingProperty(null)}
+              className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-colors"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+              <Edit2 className="w-5 h-5 text-indigo-600" />
+              Edit Property
+            </h2>
+            <form onSubmit={handleEditSubmit} className="space-y-4">
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Title</label>
+                <input 
+                  type="text" required
+                  value={editForm.title} onChange={e => setEditForm({...editForm, title: e.target.value})}
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Location</label>
+                <input 
+                  type="text" required
+                  value={editForm.location} onChange={e => setEditForm({...editForm, location: e.target.value})}
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Monthly Rent (৳)</label>
+                <input 
+                  type="number" required
+                  value={editForm.monthlyRent} onChange={e => setEditForm({...editForm, monthlyRent: e.target.value})}
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Property Type</label>
+                <select 
+                  required
+                  value={editForm.propertyType} onChange={e => setEditForm({...editForm, propertyType: e.target.value})}
+                  className="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium"
+                >
+                  <option value="apartment">Apartment</option>
+                  <option value="house">House</option>
+                  <option value="studio">Studio</option>
+                  <option value="commercial">Commercial</option>
+                </select>
+              </div>
+              <div className="pt-4 flex gap-3">
+                <button type="button" onClick={() => setEditingProperty(null)} className="flex-1 py-2.5 px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-xl transition-colors">
+                  Cancel
+                </button>
+                <button type="submit" disabled={actionLoadingId === editingProperty._id} className="flex-1 py-2.5 px-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl transition-colors flex justify-center items-center">
+                  {actionLoadingId === editingProperty._id ? <RefreshCw className="w-5 h-5 animate-spin" /> : "Save Changes"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
@@ -111,7 +216,7 @@ export default function AdminPropertiesPage() {
             <Building className="w-8 h-8 text-[#009282]" />
             Manage Properties
           </h1>
-          <p className="text-[#6B7280] text-sm">Review, approve, or delete active rental listings on RentDesh.</p>
+          <p className="text-[#6B7280] text-sm">Review, approve, edit, or delete active rental listings on RentDesh.</p>
         </div>
         <button 
           onClick={fetchProperties}
@@ -166,7 +271,7 @@ export default function AdminPropertiesPage() {
                         </span>
                       </td>
                       <td className="py-4 text-center pr-6">
-                        <div className="flex items-center justify-center gap-3">
+                        <div className="flex items-center justify-center gap-2">
                           {/* Approve Button */}
                           <button
                             onClick={() => handleApprove(property._id)}
@@ -181,6 +286,16 @@ export default function AdminPropertiesPage() {
                             <Check className="w-4 h-4 stroke-[3]" />
                           </button>
                           
+                          {/* Edit Button */}
+                          <button
+                            onClick={() => openEditModal(property)}
+                            disabled={actionLoadingId === property._id}
+                            className="p-1.5 rounded-lg border border-indigo-100 text-indigo-500 hover:bg-indigo-50 active:scale-90 transition-all"
+                            title="Edit Listing"
+                          >
+                            <Edit2 className="w-4 h-4 stroke-[2]" />
+                          </button>
+
                           {/* Delete Button */}
                           <button
                             onClick={() => handleDelete(property._id)}
@@ -205,7 +320,7 @@ export default function AdminPropertiesPage() {
           <div className="py-4 border-t border-[#F3F4F6] bg-[#F9FAFB]/50 flex items-center justify-center gap-1 font-semibold text-xs text-[#4B5563]">
             {/* Previous */}
             <button
-              onClick={() => goToPage(currentPage - 1)}
+               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
               className="px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white hover:bg-gray-50 transition-all disabled:opacity-50 disabled:hover:bg-white flex items-center gap-1 cursor-pointer"
             >
@@ -230,7 +345,7 @@ export default function AdminPropertiesPage() {
 
             {/* Next */}
             <button
-              onClick={() => goToPage(currentPage + 1)}
+               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === totalPages}
               className="px-3 py-1.5 rounded-lg border border-[#E5E7EB] bg-white hover:bg-gray-50 transition-all disabled:opacity-50 disabled:hover:bg-white flex items-center gap-1 cursor-pointer"
             >
