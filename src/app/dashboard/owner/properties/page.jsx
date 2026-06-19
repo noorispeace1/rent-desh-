@@ -27,7 +27,7 @@ export default function PropertiesPage() {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const res = await fetch('http://localhost:5000/properties', { cache: 'no-store' });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         setProperties(data);
@@ -60,7 +60,7 @@ export default function PropertiesPage() {
     if (!confirm("Are you sure you want to delete this property?")) return;
     
     try {
-      const res = await fetch(`http://localhost:5000/properties/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/${id}`, {
         method: 'DELETE',
       });
       if (res.ok) {
@@ -101,7 +101,7 @@ export default function PropertiesPage() {
 
     setIsUpdating(true);
     try {
-      const res = await fetch(`http://localhost:5000/properties/${editingProperty._id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/${editingProperty._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

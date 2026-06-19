@@ -31,7 +31,7 @@ export default function FavoriteButton({ propertyId, initialIsFavorited, onToggl
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:5000/favorites", {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,26 +73,39 @@ export default function FavoriteButton({ propertyId, initialIsFavorited, onToggl
     <button
       onClick={toggleFavorite}
       disabled={loading}
-      className={`absolute bottom-4 right-4 bg-white/95 hover:bg-white backdrop-blur-sm p-2.5 rounded-full shadow-md transition-all duration-300 transform active:scale-95 z-10 ${
+      className={`absolute bottom-4 right-4 backdrop-blur-sm p-3 rounded-full shadow-lg transition-all duration-300 transform z-10 overflow-hidden group focus:outline-none ${
         isFavorited 
-          ? "text-red-500 scale-105" 
-          : "text-gray-400 hover:text-red-500"
+          ? "bg-red-50 text-red-500 border border-red-100 shadow-red-500/30 hover:scale-105" 
+          : "bg-white/90 text-gray-400 hover:text-red-500 border border-white/50 hover:scale-105 hover:bg-white"
       }`}
       title={isFavorited ? "Remove from Favorites" : "Add to Favorites"}
     >
-      <svg
-        className="w-5 h-5 transition-transform duration-300"
-        fill={isFavorited ? "currentColor" : "none"}
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        strokeWidth="2"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-        />
-      </svg>
+      <div className="relative flex items-center justify-center">
+        <svg
+          className={`w-5 h-5 transition-all duration-500 ${isFavorited ? "scale-110" : "scale-100 group-hover:scale-110"}`}
+          fill={isFavorited ? "currentColor" : "none"}
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={isFavorited ? "0" : "2"}
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+        
+        {/* Beautiful ping animation when favorited */}
+        {isFavorited && (
+          <svg
+            className="absolute inset-0 w-5 h-5 text-red-400 animate-ping opacity-75"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        )}
+      </div>
     </button>
   );
 }

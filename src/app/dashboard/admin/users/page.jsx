@@ -19,7 +19,7 @@ export default function AdminUsersPage() {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/admin/users");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/users`);
       if (res.ok) {
         const data = await res.json();
         setUsers(data);

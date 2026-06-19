@@ -20,7 +20,7 @@ function AdminTransactionsPage() {
   const fetchTransactions = async () => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/bookings`, { cache: 'no-store' });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         setTransactions(data);

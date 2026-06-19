@@ -49,7 +49,7 @@ export default function AdminDashboard() {
   const fetchStats = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/admin/stats");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/stats`);
       if (res.ok) {
         const data = await res.json();
         setStats(data);

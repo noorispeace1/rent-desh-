@@ -118,7 +118,7 @@ const OwnerDashboard = () => {
   useEffect(() => {
     const fetchProperties = async () => {
       try {
-        const res = await fetch("http://localhost:5000/properties");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`);
         if (res.ok) {
           const data = await res.json();
           // Get the last 4 added properties

@@ -42,8 +42,11 @@ const SendIcon = () => (
 
 const Footer = () => {
   return (
-    <footer className="bg-[#FCF9F6] pt-20 pb-8 border-t border-[#EFEBE9]">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+    <footer className="bg-[#0B1A18] text-white pt-24 pb-8 relative overflow-hidden mt-10 w-full">
+      {/* Decorative Blur Orbs */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#009282] opacity-5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+      
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
         
         {/* Top Section: Logo, Description & Links */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
@@ -52,12 +55,20 @@ const Footer = () => {
           <div className="lg:col-span-4 flex flex-col pr-0 lg:pr-8">
             {/* Text Logo: RentDesh */}
             <Link href="/" className="inline-block mb-6 group">
-              <h2 className="font-serif font-bold text-3xl text-[#4E342E] tracking-wide transition-transform group-hover:scale-105 origin-left">
-                Rent<span className="text-[#8D6E63]">Desh</span>
-              </h2>
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#009282] to-[#00b8a4] flex items-center justify-center shadow-lg shadow-[#009282]/20 group-hover:scale-105 transition-transform duration-300">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <polyline points="9 22 9 12 15 12 15 22" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <span className="font-bold text-3xl tracking-tight leading-none text-white">
+                  Rent<span className="text-[#009282]">Desh</span>
+                </span>
+              </div>
             </Link>
             
-            <p className="text-[#795548] text-[15px] leading-relaxed mb-8">
+            <p className="text-gray-400 text-[15px] leading-relaxed mb-8">
               Find your perfect home with RentDesh. We connect tenants with the best rental properties across the country, ensuring a seamless, secure, and premium experience.
             </p>
 
@@ -68,14 +79,14 @@ const Footer = () => {
                 placeholder="Enter your email"
                 variant="bordered"
                 radius="lg"
-                size="md"
-                className="bg-white text-[#5D4037] placeholder:text-[#A1887F] shadow-sm pr-12 transition-all"
+                size="lg"
+                className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 pr-12 transition-all hover:bg-white/10"
               />
               <Button 
                 isIconOnly 
-                size="sm" 
+                size="md" 
                 radius="md"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#6D4C41] hover:bg-[#4E342E] text-white transition-colors z-10 shadow-sm"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 bg-[#009282] hover:bg-[#007A6C] text-white transition-colors z-10 shadow-sm"
                 aria-label="Subscribe"
               >
                 <SendIcon />
@@ -84,16 +95,16 @@ const Footer = () => {
 
             {/* Social Icons using Hero UI Button + SVG Icons */}
             <div className="flex items-center gap-4">
-              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Facebook" className="bg-[#EFEBE9] text-[#5D4037] hover:bg-[#6D4C41] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
+              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Facebook" className="bg-white/5 text-gray-300 border border-white/10 hover:bg-[#009282] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
                 <FacebookIcon />
               </Button>
-              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Twitter" className="bg-[#EFEBE9] text-[#5D4037] hover:bg-[#6D4C41] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
+              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Twitter" className="bg-white/5 text-gray-300 border border-white/10 hover:bg-[#009282] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
                 <TwitterIcon />
               </Button>
-              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Instagram" className="bg-[#EFEBE9] text-[#5D4037] hover:bg-[#6D4C41] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
+              <Button as={Link} href="#" isIconOnly radius="full" aria-label="Instagram" className="bg-white/5 text-gray-300 border border-white/10 hover:bg-[#009282] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
                 <InstagramIcon />
               </Button>
-              <Button as={Link} href="#" isIconOnly radius="full" aria-label="LinkedIn" className="bg-[#EFEBE9] text-[#5D4037] hover:bg-[#6D4C41] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
+              <Button as={Link} href="#" isIconOnly radius="full" aria-label="LinkedIn" className="bg-white/5 text-gray-300 border border-white/10 hover:bg-[#009282] hover:text-white transition-all duration-300 hover:-translate-y-1 shadow-sm">
                 <LinkedinIcon />
               </Button>
             </div>
@@ -103,109 +114,45 @@ const Footer = () => {
           <div className="lg:col-span-8 grid grid-cols-2 md:grid-cols-4 gap-8">
             {/* Column 1: Services */}
             <div>
-              <h3 className="text-[#4E342E] font-serif font-bold text-lg mb-6">Services</h3>
+              <h3 className="text-white font-bold text-lg mb-6">Services</h3>
               <ul className="flex flex-col gap-4">
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Property Management
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Tenant Screening
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Home Valuation
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Rent Collection
-                  </Link>
-                </li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Property Management</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Tenant Screening</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Home Valuation</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Rent Collection</Link></li>
               </ul>
             </div>
 
             {/* Column 2: Company */}
             <div>
-              <h3 className="text-[#4E342E] font-serif font-bold text-lg mb-6">Company</h3>
+              <h3 className="text-white font-bold text-lg mb-6">Company</h3>
               <ul className="flex flex-col gap-4">
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    About RentDesh
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Meet the Team
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Customer Reviews
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Careers
-                  </Link>
-                </li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">About RentDesh</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Meet the Team</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Customer Reviews</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Careers</Link></li>
               </ul>
             </div>
 
             {/* Column 3: Helpful Links */}
             <div>
-              <h3 className="text-[#4E342E] font-serif font-bold text-lg mb-6">Support</h3>
+              <h3 className="text-white font-bold text-lg mb-6">Support</h3>
               <ul className="flex flex-col gap-4">
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Help Center & FAQs
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Live Chat
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Property Guide
-                  </Link>
-                </li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Contact Us</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Help Center & FAQs</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Live Chat</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Property Guide</Link></li>
               </ul>
             </div>
 
             {/* Column 4: Legal */}
             <div>
-              <h3 className="text-[#4E342E] font-serif font-bold text-lg mb-6">Legal</h3>
+              <h3 className="text-white font-bold text-lg mb-6">Legal</h3>
               <ul className="flex flex-col gap-4">
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Terms of Service
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Refund Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link href="#" className="text-[#795548] text-[15px] hover:text-[#6D4C41] hover:font-medium transition-all duration-300 hover:translate-x-1 block">
-                    Accessibility
-                  </Link>
-                </li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Privacy Policy</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Terms of Service</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Refund Policy</Link></li>
+                <li><Link href="#" className="text-gray-400 text-[15px] hover:text-[#A7F3EB] transition-colors duration-300 block">Accessibility</Link></li>
               </ul>
             </div>
 
@@ -213,17 +160,16 @@ const Footer = () => {
         </div>
 
         {/* Bottom Section: Copyright */}
-        <div className="pt-8 border-t border-[#EFEBE9] flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-[#8D6E63]">
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-gray-500">
             © {new Date().getFullYear()} RentDesh. All rights reserved.
           </p>
-          <div className="flex gap-6 text-sm text-[#8D6E63]">
-            <Link href="#" className="hover:text-[#4E342E] transition-colors">Terms</Link>
-            <Link href="#" className="hover:text-[#4E342E] transition-colors">Privacy</Link>
-            <Link href="#" className="hover:text-[#4E342E] transition-colors">Cookies</Link>
+          <div className="flex gap-6 text-sm text-gray-500">
+            <Link href="#" className="hover:text-white transition-colors">Terms</Link>
+            <Link href="#" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="#" className="hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
-
       </div>
     </footer>
   );

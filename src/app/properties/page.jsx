@@ -40,7 +40,7 @@ function PropertiesContent() {
     try {
       setLoading(true);
       // Fetch properties
-      const propsRes = await fetch('http://localhost:5000/properties');
+      const propsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`);
       if (propsRes.ok) {
         const propsData = await propsRes.json();
         setProperties(propsData);
@@ -48,7 +48,7 @@ function PropertiesContent() {
 
       // Fetch user's favorite IDs if logged in
       if (session?.user?.id) {
-        const favsRes = await fetch(`http://localhost:5000/favorites/ids/${session.user.id}`);
+        const favsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites/ids/${session.user.id}`);
         if (favsRes.ok) {
           const favsData = await favsRes.json();
           setFavoriteIds(favsData);

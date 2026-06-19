@@ -30,7 +30,7 @@ const Success = () => {
       if (existingBookingId) {
         const updateBooking = async () => {
           try {
-            const res = await fetch(`http://localhost:5000/bookings/${existingBookingId}/pay`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings/${existingBookingId}/pay`, {
               method: "PATCH",
             });
             if (res.ok) {
@@ -51,7 +51,7 @@ const Success = () => {
 
         const saveBooking = async () => {
           try {
-            const res = await fetch("http://localhost:5000/bookings", {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({

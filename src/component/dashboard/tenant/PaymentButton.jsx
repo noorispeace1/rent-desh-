@@ -11,7 +11,7 @@ export default function PaymentButton({ bookingId, propertyTitle, monthlyRent })
     const handlePayment = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`http://localhost:5000/bookings/${bookingId}/pay`, {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings/${bookingId}/pay`, {
                 method: 'PATCH'
             });
             if (res.ok) {

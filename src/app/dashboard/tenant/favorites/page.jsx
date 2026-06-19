@@ -21,7 +21,7 @@ export default function FavoritesPage() {
   const fetchFavorites = async (userId) => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/favorites/${userId}`);
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites/${userId}`);
       if (res.ok) {
         const data = await res.json();
         setFavorites(data);

@@ -2,7 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 
-const baseUrl = "http://localhost:5000";
+const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 // Fetch all bookings for a user
 export const fetchUserBookings = async (email) => {

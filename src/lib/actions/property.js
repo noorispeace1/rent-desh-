@@ -1,5 +1,5 @@
 "use server"
-const baseUrl = "http://localhost:5000";
+const baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 export const getAllProperty = async (allproperties) => {
    const res = await fetch(`${baseUrl}/api/properties`, 
             {method: "POST", 

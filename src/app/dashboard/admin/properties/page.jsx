@@ -19,7 +19,7 @@ export default function AdminPropertiesPage() {
   const fetchProperties = async () => {
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:5000/properties");
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties`);
       if (res.ok) {
         const data = await res.json();
         setProperties(data);
@@ -35,7 +35,7 @@ export default function AdminPropertiesPage() {
   const handleApprove = async (id) => {
     try {
       setActionLoadingId(id);
-      const res = await fetch(`http://localhost:5000/properties/approve/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/approve/${id}`, {
         method: "PATCH"
       });
       const data = await res.json();
@@ -63,7 +63,7 @@ export default function AdminPropertiesPage() {
 
     try {
       setActionLoadingId(id);
-      const res = await fetch(`http://localhost:5000/properties/${id}`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/${id}`, {
         method: "DELETE"
       });
       const data = await res.json();

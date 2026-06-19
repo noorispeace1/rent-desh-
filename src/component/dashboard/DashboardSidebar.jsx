@@ -14,6 +14,7 @@ const tenantNav = [
       { label: "Overview", href: "/dashboard/tenant", icon: GridIcon },
       { label: "My Bookings", href: "/dashboard/tenant/my-bookings", icon: FileIcon },
       { label: "Favorites", href: "/dashboard/tenant/favorites", icon: HeartIcon },
+      { label: "Reviews", href: "/dashboard/tenant/review", icon: ChatIcon },
       { label: "Profile", href: "/dashboard/profile", icon: UserIcon },
     ],
   },

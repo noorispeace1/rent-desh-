@@ -1,12 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import BookingModalButton from '@/component/dashboard/BookingModalButton';
+import FavoriteButton from '@/component/dashboard/FavoriteButton';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
 async function getProperty(id) {
     try {
-        const res = await fetch(`http://localhost:5000/property/${id}`, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/property/${id}`, { cache: 'no-store' });
         if (!res.ok) return null;
         return res.json();
     } catch (error) {
@@ -15,9 +18,27 @@ async function getProperty(id) {
     }
 }
 
+async function getFavoriteIds(userId) {
+  if (!userId) return [];
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites/ids/${userId}`, { cache: 'no-store' });
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    return [];
+  }
+}
+
 export default async function PropertyDetailsPage({ params }) {
     const { id } = await params;
     const property = await getProperty(id);
+    
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+    const userId = session?.user?.id;
+    const favoriteIds = await getFavoriteIds(userId);
+    const initialIsFavorited = favoriteIds.includes(property?._id);
 
     if (!property) {
         return (
@@ -52,9 +73,12 @@ export default async function PropertyDetailsPage({ params }) {
                     <Link href="/dashboard/tenant/my-bookings" className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2.5 rounded-full transition-all border border-white/30">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     </Link>
-                    <button className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white p-2.5 rounded-full transition-all border border-white/30">
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>
-                    </button>
+                    <div className="relative w-12 h-12 flex items-center justify-center">
+                        <FavoriteButton 
+                            propertyId={property._id} 
+                            initialIsFavorited={initialIsFavorited} 
+                        />
+                    </div>
                 </div>
 
                 {/* Hero Content */}

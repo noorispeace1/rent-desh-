@@ -3,9 +3,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useSession } from "@/lib/auth-client";
 
 const AddPropertyForm = () => {
   const router = useRouter();
+  const { data: session } = useSession();
   const amenitiesList = [
     "WiFi",
     "Security",
@@ -97,10 +99,32 @@ const AddPropertyForm = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:5000/property", {
+      // Get or Generate JWT Token
+      let token = localStorage.getItem('access_token');
+      if (!token && session?.user?.email) {
+        const tokenRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/jwt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: session.user.email })
+        });
+        if (tokenRes.ok) {
+          const tokenData = await tokenRes.json();
+          token = tokenData.token;
+          localStorage.setItem('access_token', token);
+        }
+      }
+
+      if (!token) {
+         toast.error("Authentication failed. No token generated.");
+         setLoading(false);
+         return;
+      }
+
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/property`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
         },
         body: JSON.stringify(propertyData),
       });

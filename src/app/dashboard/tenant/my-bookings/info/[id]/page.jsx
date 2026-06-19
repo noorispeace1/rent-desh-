@@ -6,7 +6,7 @@ export const dynamic = 'force-dynamic';
 
 async function getBooking(id) {
     try {
-        const res = await fetch(`http://localhost:5000/bookings/single/${id}`, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings/single/${id}`, { cache: 'no-store' });
         if (!res.ok) return null;
         return res.json();
     } catch (error) {
@@ -17,7 +17,7 @@ async function getBooking(id) {
 
 async function getProperty(id) {
     try {
-        const res = await fetch(`http://localhost:5000/property/${id}`, { cache: 'no-store' });
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/property/${id}`, { cache: 'no-store' });
         if (!res.ok) return null;
         return res.json();
     } catch (error) {

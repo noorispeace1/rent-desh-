@@ -22,7 +22,7 @@ function OwnerTransactionsPage() {
   const fetchTransactions = async (email) => {
     try {
       setLoading(true);
-      const res = await fetch(`http://localhost:5000/bookings/owner/${email}`, { cache: 'no-store' });
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/bookings/owner/${email}`, { cache: 'no-store' });
       if (res.ok) {
         const data = await res.json();
         setTransactions(data);
