@@ -4,12 +4,13 @@ import { headers } from 'next/headers';
 import { auth } from '@/lib/auth';
 import FavoriteButton from '@/component/dashboard/FavoriteButton';
 import Section from "@/component/Section";
+import { Property } from '@/types';
 
 export const dynamic = 'force-dynamic';
 
-async function getProperties() {
+async function getProperties(): Promise<Property[]> {
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/public`, { cache: 'no-store' });
+    const res = await fetch(`http://127.0.0.1:5000/properties/public`, { cache: 'no-store' });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
@@ -18,10 +19,10 @@ async function getProperties() {
   }
 }
 
-async function getFavoriteIds(userId) {
+async function getFavoriteIds(userId?: string): Promise<string[]> {
   if (!userId) return [];
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites/ids/${userId}`, { cache: 'no-store' });
+    const res = await fetch(`http://127.0.0.1:5000/favorites/ids/${userId}`, { cache: 'no-store' });
     if (!res.ok) return [];
     return res.json();
   } catch (error) {
@@ -38,11 +39,11 @@ export default async function Home() {
   const userId = session?.user?.id;
   const favoriteIds = await getFavoriteIds(userId);
   
-  // Show top 6 properties on the home page as featured listings
-  const featuredProperties = properties.slice(0, 6);
+  // Show last 6 properties on the home page as featured listings
+  const featuredProperties = properties.slice(-6).reverse();
 
   return (
-    <div className="bg-[#F9FAFB] min-h-screen pb-16">
+    <div className="min-h-screen pb-16">
       <Banner />
       
       <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-12 mb-10">
@@ -60,7 +61,21 @@ export default async function Home() {
           </Link>
         </div>
 
-        {featuredProperties.length === 0 ? (
+        {!session?.user ? (
+          <div className="bg-white border border-gray-100 rounded-[32px] p-16 text-center flex flex-col items-center justify-center min-h-[400px] shadow-sm">
+            <div className="w-20 h-20 bg-emerald-50 rounded-full flex items-center justify-center mb-6 text-[#009282]">
+              <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-black text-[#1C1C1E] mb-2">Sign In Required</h3>
+            <p className="text-[#6B7280] text-[15px] max-w-sm mb-6">You need to sign in or create an account to view our premium property listings.</p>
+            <div className="flex gap-4">
+              <Link href="/auth/signin" className="bg-[#009282] hover:bg-[#007A6C] text-white px-6 py-2.5 rounded-xl font-bold transition-all shadow-sm">Sign In</Link>
+              <Link href="/auth/signup" className="bg-emerald-50 hover:bg-emerald-100 text-[#009282] px-6 py-2.5 rounded-xl font-bold transition-all">Register</Link>
+            </div>
+          </div>
+        ) : featuredProperties.length === 0 ? (
           <div className="bg-white border border-gray-100 rounded-[32px] p-16 text-center flex flex-col items-center justify-center min-h-[400px] shadow-sm">
             <div className="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-6 text-gray-300">
               <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -136,7 +151,7 @@ export default async function Home() {
 
                   <div className="mt-2">
                     <Link 
-                      href={`/dashboard/tenant/my-bookings/${property._id}`}
+                      href={userId ? `/dashboard/tenant/my-bookings/${property._id}` : `/auth/signin`}
                       className="w-full block text-center bg-[#1C1C1E] hover:bg-black text-white py-3 rounded-xl text-[14px] font-bold transition-all shadow-sm hover:shadow-md"
                     >
                       View Details

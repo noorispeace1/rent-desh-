@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Building2, Users, MapPin, ShieldCheck, Star, ArrowRight, Award } from 'lucide-react';
+import { Building2, Users, MapPin, ShieldCheck, Star, ArrowRight, Award, Shield, Clock, BadgeCheck, Headphones } from 'lucide-react';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 40 },
@@ -80,13 +80,75 @@ const trustedOwners = [
   },
 ];
 
+const whyChooseUs = [
+  {
+    id: 1,
+    icon: Shield,
+    title: '100% Verified Listings',
+    description: 'Every property goes through a strict multi-step verification. We check ownership documents, inspect properties, and verify owners — so you never face a fake listing.',
+    color: 'bg-emerald-100 text-emerald-600',
+  },
+  {
+    id: 2,
+    icon: Clock,
+    title: 'Quick & Easy Process',
+    description: 'From search to move-in, the entire process takes minutes, not weeks. Browse, book, pay, and settle — all from your phone or laptop.',
+    color: 'bg-blue-100 text-blue-600',
+  },
+  {
+    id: 3,
+    icon: BadgeCheck,
+    title: 'Secure Payments',
+    description: 'Pay securely with Stripe. Every transaction is encrypted and your financial data is never stored on our servers.',
+    color: 'bg-violet-100 text-violet-600',
+  },
+  {
+    id: 4,
+    icon: Headphones,
+    title: '24/7 Customer Support',
+    description: 'Our dedicated team is available round the clock via chat, email, and phone. Whether it\'s late-night or early morning, we\'re here.',
+    color: 'bg-amber-100 text-amber-600',
+  },
+];
+
+const staticReviews = [
+  {
+    _id: 'static-1',
+    userName: 'Rafiq Ahmed',
+    rating: 5,
+    reviewText: 'RentDesh made finding my apartment in Dhaka incredibly easy. The verification process gave me so much confidence. Moved in within a week!',
+    propertyTitle: 'Modern Apartment, Gulshan',
+  },
+  {
+    _id: 'static-2',
+    userName: 'Sadia Jahan',
+    rating: 5,
+    reviewText: 'As a first-time renter, I was nervous. But RentDesh\'s team guided me through every step. The payment was seamless and the owner was verified. Highly recommended!',
+    propertyTitle: 'Studio Flat, Dhanmondi',
+  },
+  {
+    _id: 'static-3',
+    userName: 'Kamal Hossain',
+    rating: 4,
+    reviewText: 'Great platform for property owners too. I listed my apartment and got tenants within days. The analytics dashboard is really helpful for tracking earnings.',
+    propertyTitle: 'Family Apartment, Uttara',
+  },
+  {
+    _id: 'static-4',
+    userName: 'Nusrat Faria',
+    rating: 5,
+    reviewText: 'The search filters are amazing — I found exactly what I needed by filtering location and price. Plus the dark mode is a nice touch. Love this platform!',
+    propertyTitle: '3-BHK House, Sylhet',
+  },
+];
+
 export default function ExtraSections() {
   const [dynamicReviews, setDynamicReviews] = useState([]);
 
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/reviews`);
+        const res = await fetch(`http://127.0.0.1:5000/reviews`);
         if (res.ok) {
           const data = await res.json();
           setDynamicReviews(data);
@@ -246,61 +308,92 @@ export default function ExtraSections() {
         </motion.div>
       </motion.section>
 
-      {/* 4. Customer Reviews Section (Dynamic) */}
-      {dynamicReviews.length > 0 && (
-        <motion.section 
-          variants={fadeIn}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10"
-        >
-          <div className="text-center mb-16">
-            <span className="inline-block text-[#009282] font-bold uppercase tracking-widest text-xs mb-3">Testimonials</span>
-            <h2 className="text-3xl md:text-4xl font-black text-[#1C1C1E] mb-4 tracking-tight">What Our Tenants Say</h2>
-            <p className="text-[#6B7280] text-[15px] max-w-2xl mx-auto leading-relaxed">Real experiences from verified tenants. Discover why thousands choose RentDesh for their home search.</p>
-          </div>
+      {/* 4. Why Choose Us Section */}
+      <motion.section 
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-10"
+      >
+        <div className="text-center mb-16">
+          <span className="inline-block text-[#009282] font-bold uppercase tracking-widest text-xs mb-3">Why RentDesh</span>
+          <h2 className="text-3xl md:text-4xl font-black text-[#1C1C1E] mb-4 tracking-tight">Why Choose Us?</h2>
+          <p className="text-[#6B7280] text-[15px] max-w-2xl mx-auto leading-relaxed">We&apos;ve built every feature around one goal — making renting in Bangladesh safe, fast, and hassle-free.</p>
+        </div>
 
-          <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {dynamicReviews.map((review) => (
+        <motion.div variants={staggerContainer} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {whyChooseUs.map((item) => {
+            const Icon = item.icon;
+            return (
               <motion.div variants={fadeIn}
-                key={review._id} 
-                className="bg-white rounded-[32px] p-8 sm:p-10 border border-gray-100 shadow-[0_2px_15px_rgb(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.06)] transition-all duration-300 relative flex flex-col h-full group"
+                key={item.id}
+                className="bg-white rounded-[24px] p-8 border border-gray-100 hover:border-[#009282]/20 hover:shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-300 group text-center"
               >
-                {/* Minimalist Quote Mark */}
-                <div className="absolute top-8 right-8 text-gray-100 group-hover:text-emerald-50 transition-colors duration-300">
-                  <svg className="w-16 h-16" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-                  </svg>
+                <div className={`w-14 h-14 rounded-2xl ${item.color} flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300`}>
+                  <Icon className="w-7 h-7" />
                 </div>
-
-                <div className="flex items-center gap-1 mb-8 relative z-10">
-                  {[...Array(5)].map((_, i) => (
-                    <Star 
-                      key={i} 
-                      className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-200'}`} 
-                    />
-                  ))}
-                </div>
-
-                <p className="text-[#4B5563] text-[15px] leading-loose flex-grow mb-10 relative z-10">
-                  "{review.reviewText}"
-                </p>
-
-                <div className="flex items-center gap-4 mt-auto">
-                  <div className="w-12 h-12 rounded-full bg-[#009282]/10 flex items-center justify-center text-[#009282] font-black text-lg flex-shrink-0">
-                    {review.userName ? review.userName.charAt(0).toUpperCase() : 'U'}
-                  </div>
-                  <div>
-                    <h4 className="font-bold text-[#1C1C1E] text-sm">{review.userName || 'Anonymous'}</h4>
-                    <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-1">{review.propertyTitle}</p>
-                  </div>
-                </div>
+                <h3 className="text-lg font-black text-[#1C1C1E] mb-3">{item.title}</h3>
+                <p className="text-[#6B7280] text-[13.5px] leading-relaxed">{item.description}</p>
               </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
-      )}
+            );
+          })}
+        </motion.div>
+      </motion.section>
+
+      {/* 5. Customer Reviews Section (Static Fallback + Dynamic) */}
+      <motion.section 
+        variants={fadeIn}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="w-full max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 mt-10 mb-10"
+      >
+        <div className="text-center mb-16">
+          <span className="inline-block text-[#009282] font-bold uppercase tracking-widest text-xs mb-3">Testimonials</span>
+          <h2 className="text-3xl md:text-4xl font-black text-[#1C1C1E] mb-4 tracking-tight">What Our Tenants Say</h2>
+          <p className="text-[#6B7280] text-[15px] max-w-2xl mx-auto leading-relaxed">Real experiences from verified tenants. Discover why thousands choose RentDesh for their home search.</p>
+        </div>
+
+        <motion.div variants={staggerContainer} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {(dynamicReviews.length > 0 ? dynamicReviews.slice(0, 4) : staticReviews).map((review) => (
+            <motion.div variants={fadeIn}
+              key={review._id} 
+              className="bg-white rounded-[24px] p-7 border border-gray-100 shadow-[0_2px_15px_rgb(0,0,0,0.02)] hover:shadow-[0_15px_40px_rgb(0,0,0,0.06)] transition-all duration-300 relative flex flex-col h-full group"
+            >
+              {/* Minimalist Quote Mark */}
+              <div className="absolute top-6 right-6 text-gray-100 group-hover:text-emerald-50 transition-colors duration-300">
+                <svg className="w-12 h-12" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+                </svg>
+              </div>
+
+              <div className="flex items-center gap-1 mb-5 relative z-10">
+                {[...Array(5)].map((_, i) => (
+                  <Star 
+                    key={i} 
+                    className={`w-4 h-4 ${i < review.rating ? 'text-yellow-400 fill-current' : 'text-gray-200'}`} 
+                  />
+                ))}
+              </div>
+
+              <p className="text-[#4B5563] text-[14px] leading-relaxed flex-grow mb-6 relative z-10">
+                &ldquo;{review.reviewText}&rdquo;
+              </p>
+
+              <div className="flex items-center gap-3 mt-auto pt-5 border-t border-gray-100">
+                <div className="w-10 h-10 rounded-full bg-[#009282]/10 flex items-center justify-center text-[#009282] font-black text-sm flex-shrink-0">
+                  {review.userName ? review.userName.charAt(0).toUpperCase() : 'U'}
+                </div>
+                <div>
+                  <h4 className="font-bold text-[#1C1C1E] text-[13px]">{review.userName || 'Anonymous'}</h4>
+                  <p className="text-[11px] font-bold text-gray-400 uppercase tracking-wider mt-0.5">{review.propertyTitle}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </motion.section>
 
     </div>
   );

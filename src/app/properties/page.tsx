@@ -1,16 +1,17 @@
 "use client";
 
 import React, { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useSession } from '@/lib/auth-client';
 import PropertiseFilter from '@/component/dashboard/owner/PropertiseFilter';
 import FavoriteButton from '@/component/dashboard/FavoriteButton';
 import Link from 'next/link';
 
-function PropertiesContent() {
+function PropertiesContent({ initialProperties }) {
   const searchParams = useSearchParams();
-  const { data: session } = useSession();
-  const [properties, setProperties] = useState([]);
+  const router = useRouter();
+  const { data: session, isPending } = useSession();
+  const [properties, setProperties] = useState(initialProperties || []);
   const [favoriteIds, setFavoriteIds] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -24,7 +25,7 @@ function PropertiesContent() {
 
   // Pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 6;
+  const itemsPerPage = 9;
 
   useEffect(() => {
     // Sync filters with URL updates if needed
@@ -34,24 +35,22 @@ function PropertiesContent() {
       minPrice: searchParams.get('minPrice') || '',
       maxPrice: searchParams.get('maxPrice') || '',
     });
-    // Reset to page 1 when filters change
     setCurrentPage(1);
   }, [searchParams]);
 
   useEffect(() => {
-    fetchData();
-  }, [session]);
+    if (!isPending) {
+      if (!session?.user) {
+        router.push("/auth/signin");
+      } else {
+        fetchFavorites();
+      }
+    }
+  }, [session, isPending, router]);
 
-  const fetchData = async () => {
+  const fetchFavorites = async () => {
     try {
       setLoading(true);
-      // Fetch properties
-      const propsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/properties/public`);
-      if (propsRes.ok) {
-        const propsData = await propsRes.json();
-        setProperties(propsData);
-      }
-
       // Fetch user's favorite IDs if logged in
       if (session?.user?.id) {
         const favsRes = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/favorites/ids/${session.user.id}`);
@@ -61,7 +60,7 @@ function PropertiesContent() {
         }
       }
     } catch (error) {
-      console.error("Failed to fetch data on properties page:", error);
+      console.error("Failed to fetch favorites on properties page:", error);
     } finally {
       setLoading(false);
     }
@@ -109,19 +108,34 @@ function PropertiesContent() {
   const handlePrevious = () => { if (currentPage > 1) setCurrentPage(currentPage - 1); };
   const handleNext = () => { if (currentPage < totalPages) setCurrentPage(currentPage + 1); };
 
-  if (loading) {
+  if (loading || isPending) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center min-h-[400px]">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#009282] to-[#00b8a4] animate-pulse shadow-lg mb-4" />
-        <p className="text-[#9CA3AF] text-sm font-medium">Loading properties...</p>
+        <div className="relative w-14 h-14 mb-4">
+          <div className="absolute inset-0 rounded-full border-[3px] border-[#E5E7EB]"></div>
+          <div className="absolute inset-0 rounded-full border-[3px] border-[#009282] border-t-transparent animate-spin"></div>
+        </div>
+        <p className="text-[#6B7280] text-sm font-medium animate-pulse">Loading properties...</p>
       </div>
     );
+  }
+
+  // If we reach here and there is no session, we return null because the useEffect will handle the redirect.
+  if (!session?.user) {
+    return null;
   }
 
   return (
     <div className="w-full max-w-[1200px] mx-auto p-4 sm:p-6 lg:p-8 flex-1">
       <div className="mb-8">
-        <h1 className="text-2xl sm:text-3xl font-bold text-[#1C1C1E] mb-2 tracking-tight">Available Properties</h1>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1C1C1E] tracking-tight">Available Properties</h1>
+          {!loading && (
+            <div className="bg-[#E6F4F1] text-[#009282] px-4 py-1.5 rounded-full text-sm font-bold shadow-sm inline-flex items-center w-max">
+              Showing {filteredProperties.length} total propert{filteredProperties.length === 1 ? 'y' : 'ies'}
+            </div>
+          )}
+        </div>
         <p className="text-[#6B7280] text-sm">Find and book your next dream space instantly.</p>
       </div>
 
@@ -269,14 +283,27 @@ function PropertiesContent() {
 }
 
 export default function PropertiesPage() {
+  const [initialProperties, setInitialProperties] = useState([]);
+  
+  useEffect(() => {
+    // Fetch properties immediately on mount so data is always there
+    fetch(`http://127.0.0.1:5000/properties/public`)
+      .then(res => res.json())
+      .then(data => setInitialProperties(data))
+      .catch(err => console.error("Error fetching properties:", err));
+  }, []);
+
   return (
     <Suspense fallback={
       <div className="flex-1 flex flex-col items-center justify-center min-h-[400px]">
-        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#009282] to-[#00b8a4] animate-pulse shadow-lg mb-4" />
-        <p className="text-[#9CA3AF] text-sm font-medium">Loading properties...</p>
+        <div className="relative w-14 h-14 mb-4">
+          <div className="absolute inset-0 rounded-full border-[3px] border-[#E5E7EB]"></div>
+          <div className="absolute inset-0 rounded-full border-[3px] border-[#009282] border-t-transparent animate-spin"></div>
+        </div>
+        <p className="text-[#6B7280] text-sm font-medium animate-pulse">Loading properties...</p>
       </div>
     }>
-      <PropertiesContent />
+      <PropertiesContent initialProperties={initialProperties} />
     </Suspense>
   );
 }

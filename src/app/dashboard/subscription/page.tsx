@@ -82,7 +82,8 @@ function SubscriptionPage() {
       });
 
       if (!res.ok) {
-        throw new Error("Failed to create Stripe checkout session");
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to create Stripe checkout session");
       }
 
       const data = await res.json();

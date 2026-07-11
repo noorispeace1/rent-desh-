@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   const { data: session, isPending } = useSession();
   const pathname = usePathname();
@@ -22,6 +23,22 @@ const Navbar = () => {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Dark mode: read saved preference on mount
+  useEffect(() => {
+    const saved = localStorage.getItem("rentdesh-theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const shouldBeDark = saved ? saved === "dark" : prefersDark;
+    setIsDark(shouldBeDark);
+    document.documentElement.classList.toggle("dark", shouldBeDark);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    document.documentElement.classList.toggle("dark", next);
+    localStorage.setItem("rentdesh-theme", next ? "dark" : "light");
+  };
 
   // Close dropdowns on outside click
   useEffect(() => {
@@ -84,8 +101,8 @@ const Navbar = () => {
       <nav
         className={`sticky top-0 z-50 w-full transition-all duration-300 ${
           isScrolled
-            ? "bg-white/95 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border-b border-[#F3F4F6]"
-            : "bg-white/90 backdrop-blur-md border-b border-[#F9FAFB]"
+            ? "bg-white/95 dark:bg-[#0F1F1D]/95 backdrop-blur-xl shadow-[0_2px_20px_rgba(0,0,0,0.08)] border-b border-[#F3F4F6] dark:border-[#1C2E2C]"
+            : "bg-white/90 dark:bg-[#0F1F1D]/90 backdrop-blur-md border-b border-[#F9FAFB] dark:border-[#1C2E2C]"
         }`}
       >
         <div className="max-w-[1440px] mx-auto px-5 sm:px-8">
@@ -118,27 +135,72 @@ const Navbar = () => {
             </div>
 
             {/* ── Desktop Nav Links ── */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-2">
               {menuItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative px-4 py-2 rounded-xl text-[14px] font-semibold transition-all duration-200 group ${
+                  className={`relative px-2 py-2 mx-2 text-[14px] font-bold transition-all duration-300 group ${
                     isActive(item.href)
-                      ? "text-[#009282] bg-[#F0FBF9]"
-                      : "text-[#6B7280] hover:text-[#1C1C1E] hover:bg-[#F9FAFB]"
+                      ? "text-[#009282] dark:text-[#4ECCA3]"
+                      : "text-[#6B7280] dark:text-[#A1A1AA] hover:text-[#1C1C1E] dark:hover:text-white"
                   }`}
                 >
                   {item.name}
-                  {isActive(item.href) && (
-                    <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-4 h-0.5 bg-[#009282] rounded-full" />
-                  )}
+                  {/* Sliding Underline Effect */}
+                  <span className={`absolute bottom-0 left-0 h-[2.5px] rounded-full bg-[#009282] dark:bg-[#4ECCA3] transition-all duration-300 ease-out ${
+                    isActive(item.href) ? "w-full" : "w-0 group-hover:w-full"
+                  }`} />
                 </Link>
               ))}
             </div>
 
             {/* ── User Actions ── */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+
+              {/* ── Dark / Light Toggle ── */}
+              <button
+                onClick={toggleTheme}
+                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                className="relative w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 focus:outline-none"
+                style={{
+                  background: isDark
+                    ? "linear-gradient(135deg, #1e3a35 0%, #0d2320 100%)"
+                    : "linear-gradient(135deg, #FEF3C7 0%, #FDE68A 100%)",
+                  boxShadow: isDark
+                    ? "0 0 0 1.5px rgba(0,146,130,0.35), 0 4px 12px rgba(0,0,0,0.25)"
+                    : "0 0 0 1.5px rgba(253,211,77,0.6), 0 4px 12px rgba(253,211,77,0.3)",
+                }}
+              >
+                <span
+                  className="transition-all duration-300"
+                  style={{
+                    display: "inline-block",
+                    transform: isDark ? "rotate(0deg) scale(1)" : "rotate(20deg) scale(1)",
+                  }}
+                >
+                  {isDark ? (
+                    /* Moon icon */
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#4ECCA3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                  ) : (
+                    /* Sun icon */
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D97706" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <circle cx="12" cy="12" r="5" />
+                      <line x1="12" y1="1" x2="12" y2="3" />
+                      <line x1="12" y1="21" x2="12" y2="23" />
+                      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                      <line x1="1" y1="12" x2="3" y2="12" />
+                      <line x1="21" y1="12" x2="23" y2="12" />
+                      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                  )}
+                </span>
+              </button>
+
               {isPending ? (
                 <div className="w-9 h-9 rounded-full bg-[#F3F4F6] animate-pulse" />
               ) : session ? (
@@ -255,12 +317,12 @@ const Navbar = () => {
 
         {/* ── Mobile Menu ── */}
         <div
-          className={`lg:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMenuOpen ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"
+          className={`lg:hidden absolute top-[calc(100%+1px)] left-0 w-full bg-white/95 dark:bg-[#0F1F1D]/95 backdrop-blur-xl shadow-2xl border-b border-[#F3F4F6] dark:border-[#1C2E2C] overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? "max-h-[600px] opacity-100 visible" : "max-h-0 opacity-0 invisible"
           }`}
           ref={mobileMenuRef}
         >
-          <div className="border-t border-[#F3F4F6] bg-white px-5 py-4 flex flex-col gap-1">
+          <div className="px-5 py-4 flex flex-col gap-1 max-h-[70vh] overflow-y-auto">
             {menuItems.map((item) => (
               <Link
                 key={item.name}

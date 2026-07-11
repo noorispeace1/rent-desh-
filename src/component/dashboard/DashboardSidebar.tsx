@@ -160,7 +160,7 @@ const DashboardSidebar = ({ isMobileOpen, onMobileClose }) => {
     });
   };
 
-  const SidebarContent = () => (
+  const sidebarContent = (
     <div className={`flex flex-col h-full ${theme.bg} ${theme.text}`}>
     
 
@@ -230,7 +230,7 @@ const DashboardSidebar = ({ isMobileOpen, onMobileClose }) => {
     <>
       {/* Desktop sidebar */}
       <aside className={`hidden lg:flex flex-col w-64 shrink-0 h-screen sticky top-0 ${theme.bg} border-r ${theme.border} overflow-hidden`}>
-        <SidebarContent />
+        {sidebarContent}
       </aside>
 
       {/* Mobile overlay */}
@@ -249,7 +249,7 @@ const DashboardSidebar = ({ isMobileOpen, onMobileClose }) => {
                 <CloseIcon className="w-4 h-4" />
               </button>
             </div>
-            <SidebarContent />
+            {sidebarContent}
           </aside>
         </>
       )}

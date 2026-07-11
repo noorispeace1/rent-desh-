@@ -79,24 +79,20 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-white">
+    <div className="min-h-screen flex bg-transparent">
 
       {/* ── Left Form Panel ── */}
-      <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-16 md:px-20 xl:px-28 relative">
+      <div className="w-full lg:w-1/2 flex flex-col justify-center px-4 sm:px-8 relative py-12 bg-gray-50/30 dark:bg-[#0a0a0a]">
 
-        {/* Top logo link */}
-     
-
-        <div className="w-full max-w-[420px] mx-auto">
+        <div className="w-full max-w-[450px] mx-auto bg-white dark:bg-[#121212] p-8 sm:p-10 rounded-[2rem] border border-gray-200/80 dark:border-white/10 shadow-2xl shadow-gray-200/40 dark:shadow-none">
 
           {/* Header */}
           <div className="mb-8">
-        
-            <h1 className="font-bold text-[2.1rem] text-[#1C1C1E] leading-tight mb-2">
+            <h1 className="font-black text-[2.2rem] text-gray-900 dark:text-white leading-tight mb-2 tracking-tight">
               Sign in to your<br />
-              <span className="text-[#009282]">account</span>
+              <span className="text-[#009282] dark:text-[#4ECCA3]">account</span>
             </h1>
-            <p className="text-[#6B7280] text-[15px] leading-relaxed">
+            <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed">
               Enter your credentials to access your RentDesh account.
             </p>
           </div>
@@ -120,15 +116,15 @@ const SignInPage = () => {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSignIn} className="flex flex-col gap-5">
+          <form onSubmit={handleSignIn} className="flex flex-col gap-4">
 
             {/* Email */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[13px] font-semibold text-[#374151] uppercase tracking-wider">
+              <label className="text-[13px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                 Email Address
               </label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                   </svg>
@@ -139,7 +135,7 @@ const SignInPage = () => {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full h-[52px] pl-11 pr-4 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[15px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                  className="w-full h-[48px] pl-11 pr-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[15px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
             </div>
@@ -147,15 +143,15 @@ const SignInPage = () => {
             {/* Password */}
             <div className="flex flex-col gap-1.5">
               <div className="flex justify-between items-center">
-                <label className="text-[13px] font-semibold text-[#374151] uppercase tracking-wider">
+                <label className="text-[13px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                   Password
                 </label>
-                <NextLink href="/forgot-password" className="text-[13px] text-[#009282] hover:text-[#007a6c] font-semibold transition-colors">
+                <NextLink href="/forgot-password" className="text-[13px] text-[#009282] dark:text-[#4ECCA3] hover:text-[#007a6c] dark:hover:text-[#3db892] font-semibold transition-colors">
                   Forgot password?
                 </NextLink>
               </div>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                   </svg>
@@ -166,12 +162,12 @@ const SignInPage = () => {
                   placeholder="••••••••••"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full h-[52px] pl-11 pr-12 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[15px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                  className="w-full h-[48px] pl-11 pr-12 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[15px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
                 <button
                   type="button"
                   onClick={toggleVisibility}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#6B7280] transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   aria-label="toggle password visibility"
                 >
                   {isVisible ? (
@@ -191,7 +187,7 @@ const SignInPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-[52px] mt-1 bg-gradient-to-r from-[#009282] to-[#00a896] text-white font-bold text-[15px] rounded-xl shadow-[0_4px_15px_rgba(0,146,130,0.35)] hover:shadow-[0_6px_20px_rgba(0,146,130,0.45)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              className="w-full h-[48px] mt-2 bg-[#009282] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a6c] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -209,9 +205,9 @@ const SignInPage = () => {
 
           {/* Divider */}
           <div className="flex items-center gap-4 my-6">
-            <div className="flex-1 h-px bg-[#F3F4F6]"></div>
-            <span className="text-[12px] text-[#9CA3AF] uppercase tracking-widest font-semibold">or continue with</span>
-            <div className="flex-1 h-px bg-[#F3F4F6]"></div>
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+            <span className="text-[12px] text-gray-400 uppercase tracking-widest font-semibold">or continue with</span>
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
           </div>
 
           {/* Google */}
@@ -219,7 +215,7 @@ const SignInPage = () => {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={googleLoading}
-            className="w-full h-[52px] bg-white border-2 border-[#E5E7EB] hover:border-[#D1D5DB] text-[#374151] font-semibold text-[15px] rounded-xl hover:bg-[#F9FAFB] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-sm hover:shadow-md"
+            className="w-full h-[48px] border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-white font-semibold text-[15px] rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3"
           >
             {googleLoading ? (
               <svg className="animate-spin w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -240,9 +236,9 @@ const SignInPage = () => {
           </button>
 
           {/* Footer */}
-          <p className="text-center text-[14px] text-[#6B7280] mt-7">
+          <p className="text-center text-[14px] text-gray-500 mt-7">
             Don&apos;t have an account?{" "}
-            <NextLink href="/auth/signup" className="text-[#009282] font-bold hover:underline underline-offset-4 transition-all">
+            <NextLink href="/auth/signup" className="text-[#009282] dark:text-[#4ECCA3] font-bold hover:underline underline-offset-4 transition-all">
               Create one for free
             </NextLink>
           </p>

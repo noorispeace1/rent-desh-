@@ -71,7 +71,7 @@ export const exportedBlogPosts = blogPosts;
 
 export default function BlogPage() {
   return (
-    <div className="bg-[#F9FAFB] min-h-screen pb-24">
+    <div className="min-h-screen pb-24">
       {/* Hero Section */}
       <section className="relative bg-[#009282] py-24 sm:py-32 overflow-hidden shadow-inner">
         {/* Decorative Background Elements */}

@@ -21,7 +21,7 @@ const DashboardLayout = ({ children }) => {
   // Loading / Redirecting state
   if (isPending || !session) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F9FAFB]">
+      <div className="min-h-screen flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#009282] to-[#00b8a4] animate-pulse shadow-lg" />
           <p className="text-[#9CA3AF] text-sm font-medium">Loading dashboard...</p>
@@ -51,7 +51,7 @@ const DashboardLayout = ({ children }) => {
   // }
 
   return (
-    <div className="flex min-h-screen bg-[#F9FAFB]">
+    <div className="flex min-h-screen">
       {/* Sidebar */}
       <DashboardSidebar
         isMobileOpen={isMobileOpen}

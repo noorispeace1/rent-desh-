@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import gsap from 'gsap'; // Corrected Import
-import { MapPin, Home, DollarSign, Search, ChevronDown } from 'lucide-react';
+import { MapPin, Home, DollarSign, Search, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 
 const Banner = () => {
     const router = useRouter();
@@ -11,11 +11,34 @@ const Banner = () => {
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
 
+    const [currentSlide, setCurrentSlide] = useState(0);
+
     const bannerRef = useRef(null);
     const bgRef = useRef(null);
     const headlineRef = useRef(null);
     const subheadRef = useRef(null);
     const searchRef = useRef(null);
+
+    const slideImages = [
+        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=2075&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=2070&auto=format&fit=crop"
+    ];
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+        }, 5000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const nextSlide = () => {
+        setCurrentSlide((prev) => (prev + 1) % slideImages.length);
+    };
+
+    const prevSlide = () => {
+        setCurrentSlide((prev) => (prev - 1 + slideImages.length) % slideImages.length);
+    };
 
     useEffect(() => {
         // gsap.context helps prevent animation bugs in React 18+ Strict Mode
@@ -50,15 +73,33 @@ const Banner = () => {
     return (
         <div ref={bannerRef} className="relative w-full min-h-[85vh] flex items-center justify-center overflow-hidden">
                 
-                {/* Background Image */}
-                <div 
-                    ref={bgRef}
-                    className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat scale-110"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2070&auto=format&fit=crop')" }}
-                ></div>
+                {/* Background Image Slider */}
+                <div ref={bgRef} className="absolute inset-0 w-full h-full scale-110">
+                    {slideImages.map((img, index) => (
+                        <div 
+                            key={index}
+                            className={`absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100' : 'opacity-0'}`}
+                            style={{ backgroundImage: `url('${img}')` }}
+                        ></div>
+                    ))}
+                </div>
 
             {/* Dark Overlay */}
             <div className="absolute inset-0 bg-black/55 backdrop-blur-[2px]"></div>
+
+            {/* Slider Navigation Arrows */}
+            <button 
+                onClick={prevSlide}
+                className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-black/30 hover:bg-[#009282] text-white backdrop-blur-sm transition-all shadow-lg border border-white/10 hover:border-transparent group"
+            >
+                <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 group-hover:-translate-x-1 transition-transform" />
+            </button>
+            <button 
+                onClick={nextSlide}
+                className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 p-2 md:p-3 rounded-full bg-black/30 hover:bg-[#009282] text-white backdrop-blur-sm transition-all shadow-lg border border-white/10 hover:border-transparent group"
+            >
+                <ChevronRight className="w-6 h-6 md:w-8 md:h-8 group-hover:translate-x-1 transition-transform" />
+            </button>
 
             {/* Main Content */}
             <div className="relative z-10 w-full max-w-7xl px-4 md:px-8 flex flex-col items-center text-center mt-10">

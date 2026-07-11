@@ -95,7 +95,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-white">
+    <div className="min-h-screen flex bg-transparent">
 
       {/* ── Right Visual Panel (shown on left for signup) ── */}
       <div className="hidden lg:block w-[45%] relative overflow-hidden">
@@ -168,28 +168,24 @@ const SignUpPage = () => {
       </div>
 
       {/* ── Right Form Panel ── */}
-      <div className="w-full lg:w-[55%] flex flex-col justify-center px-8 sm:px-14 md:px-16 xl:px-24 relative overflow-y-auto py-12">
+      <div className="w-full lg:w-[55%] flex flex-col justify-center px-4 sm:px-8 relative overflow-y-auto py-12 bg-gray-50/30 dark:bg-[#0a0a0a]">
 
-        {/* Top logo link */}
-        <div className="absolute top-8 right-8 sm:right-14">
-          <NextLink href="/auth/signin" className="text-[14px] text-[#6B7280] hover:text-[#111827] font-medium transition-colors">
+        {/* Top link */}
+        <div className="absolute top-8 right-8 sm:right-14 z-10">
+          <NextLink href="/auth/signin" className="text-[14px] text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white font-medium transition-colors flex items-center gap-1.5">
             Already have an account?{" "}
-            <span className="text-[#009282] font-bold">Sign In</span>
+            <span className="text-[#009282] dark:text-[#4ECCA3] font-bold">Sign In</span>
           </NextLink>
         </div>
 
-        <div className="w-full max-w-[460px] mx-auto">
-
+        <div className="w-full max-w-[450px] mx-auto mt-12 lg:mt-0 bg-white dark:bg-[#121212] p-8 sm:p-10 rounded-[2rem] border border-gray-200/80 dark:border-white/10 shadow-2xl shadow-gray-200/40 dark:shadow-none">
+          
           {/* Header */}
-          <div className="mb-7">
-            <div className="inline-flex items-center gap-2 bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1.5 rounded-full mb-5 border border-indigo-100">
-              <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full"></span>
-              Free to join
-            </div>
-            <h1 className="font-bold text-[2rem] text-[#1C1C1E] leading-tight mb-2">
-              Create your <span className="text-[#009282]">RentDesh</span><br />account
+          <div className="mb-8">
+            <h1 className="font-black text-[2.2rem] text-gray-900 dark:text-white leading-tight mb-2 tracking-tight">
+              Create your <span className="text-[#009282] dark:text-[#4ECCA3]">account</span>
             </h1>
-            <p className="text-[#6B7280] text-[14px] leading-relaxed">
+            <p className="text-gray-500 dark:text-gray-400 text-[15px] leading-relaxed">
               Fill in the details below to get started.
             </p>
           </div>
@@ -217,9 +213,9 @@ const SignUpPage = () => {
 
             {/* Name */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-semibold text-[#374151] uppercase tracking-wider">Full Name <span className="text-red-400">*</span></label>
+              <label className="text-[12px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Full Name <span className="text-red-400">*</span></label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
                   </svg>
@@ -229,16 +225,16 @@ const SignUpPage = () => {
                   placeholder="John Doe"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full h-[50px] pl-11 pr-4 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                  className="w-full h-[48px] pl-11 pr-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
             </div>
 
             {/* Email */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-semibold text-[#374151] uppercase tracking-wider">Email Address <span className="text-red-400">*</span></label>
+              <label className="text-[12px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Email Address <span className="text-red-400">*</span></label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
                   </svg>
@@ -249,16 +245,16 @@ const SignUpPage = () => {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className="w-full h-[50px] pl-11 pr-4 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                  className="w-full h-[48px] pl-11 pr-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[12px] font-semibold text-[#374151] uppercase tracking-wider">Password <span className="text-red-400">*</span></label>
+              <label className="text-[12px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Password <span className="text-red-400">*</span></label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
                   </svg>
@@ -269,12 +265,12 @@ const SignUpPage = () => {
                   placeholder="Min. 8 characters"
                   value={formData.password}
                   onChange={handleChange}
-                  className="w-full h-[50px] pl-11 pr-12 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                  className="w-full h-[48px] pl-11 pr-12 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                 />
                 <button
                   type="button"
                   onClick={toggleVisibility}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#9CA3AF] hover:text-[#6B7280] transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
                   {isVisible ? (
                     <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -293,9 +289,9 @@ const SignUpPage = () => {
             <div className="grid grid-cols-2 gap-3">
               {/* Image URL */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[12px] font-semibold text-[#374151] uppercase tracking-wider">Photo URL <span className="text-[#9CA3AF] normal-case font-normal">(optional)</span></label>
+                <label className="text-[12px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Photo URL <span className="text-gray-400 normal-case font-normal">(optional)</span></label>
                 <div className="relative">
-                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                  <span className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>
                     </svg>
@@ -306,24 +302,24 @@ const SignUpPage = () => {
                     placeholder="https://..."
                     value={formData.imageUri}
                     onChange={handleChange}
-                    className="w-full h-[50px] pl-10 pr-3 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[13px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] placeholder:text-[#9CA3AF]"
+                    className="w-full h-[48px] pl-10 pr-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[13px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] placeholder:text-gray-400 dark:placeholder:text-gray-500"
                   />
                 </div>
               </div>
 
               {/* Role */}
               <div className="flex flex-col gap-1.5">
-                <label className="text-[12px] font-semibold text-[#374151] uppercase tracking-wider">Account Type</label>
+                <label className="text-[12px] font-semibold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Account Type</label>
                 <div className="relative">
                   <select
                     value={formData.role}
                     onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                    className="w-full h-[50px] pl-4 pr-9 rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] text-[#111827] text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-2 focus:ring-[#009282]/20 focus:bg-white hover:border-[#D1D5DB] appearance-none cursor-pointer"
+                    className="w-full h-[48px] pl-4 pr-9 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-900 dark:text-white text-[14px] font-medium outline-none transition-all focus:border-[#009282] focus:ring-1 focus:ring-[#009282] appearance-none cursor-pointer"
                   >
                     <option value="Tenant">🏠 Tenant</option>
                     <option value="Owner">🔑 Owner</option>
                   </select>
-                  <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[#9CA3AF]">
+                  <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                       <polyline points="6 9 12 15 18 9"/>
                     </svg>
@@ -336,7 +332,7 @@ const SignUpPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full h-[52px] mt-2 bg-gradient-to-r from-[#009282] to-[#00a896] text-white font-bold text-[15px] rounded-xl shadow-[0_4px_15px_rgba(0,146,130,0.35)] hover:shadow-[0_6px_20px_rgba(0,146,130,0.45)] hover:-translate-y-0.5 active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
+              className="w-full h-[48px] mt-2 bg-[#009282] text-white font-bold text-[15px] rounded-xl hover:bg-[#007a6c] active:scale-[0.98] transition-all duration-200 disabled:opacity-70 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
@@ -347,16 +343,16 @@ const SignUpPage = () => {
                   Creating Account...
                 </>
               ) : (
-                "Create Free Account →"
+                "Create Account"
               )}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 my-5">
-            <div className="flex-1 h-px bg-[#F3F4F6]"></div>
-            <span className="text-[11px] text-[#9CA3AF] uppercase tracking-widest font-semibold">or sign up with</span>
-            <div className="flex-1 h-px bg-[#F3F4F6]"></div>
+          <div className="flex items-center gap-4 my-6">
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
+            <span className="text-[11px] text-gray-400 uppercase tracking-widest font-semibold">or continue with</span>
+            <div className="flex-1 h-px bg-gray-200 dark:bg-white/10"></div>
           </div>
 
           {/* Google */}
@@ -364,7 +360,7 @@ const SignUpPage = () => {
             type="button"
             onClick={handleGoogleSignIn}
             disabled={googleLoading}
-            className="w-full h-[50px] bg-white border-2 border-[#E5E7EB] hover:border-[#D1D5DB] text-[#374151] font-semibold text-[14px] rounded-xl hover:bg-[#F9FAFB] active:scale-[0.98] transition-all flex items-center justify-center gap-3 shadow-sm hover:shadow-md"
+            className="w-full h-[48px] border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 text-gray-700 dark:text-white font-semibold text-[14px] rounded-xl hover:bg-gray-50 dark:hover:bg-white/10 active:scale-[0.98] transition-all flex items-center justify-center gap-3"
           >
             {googleLoading ? (
               <svg className="animate-spin w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
@@ -385,7 +381,7 @@ const SignUpPage = () => {
           </button>
 
           {/* Footer */}
-          <p className="text-center text-[13px] text-[#9CA3AF] mt-6">
+          <p className="text-center text-[13px] text-gray-500 mt-6">
             By creating an account, you agree to our{" "}
             <NextLink href="/terms" className="text-[#009282] hover:underline font-medium">Terms</NextLink>{" "}
             &amp;{" "}

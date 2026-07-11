@@ -38,7 +38,7 @@ html.dark {
 body {
   background: var(--bg-base);
   color: var(--text-primary);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  font-family: var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
   transition: background 0.25s ease, color 0.25s ease;
 }
 
@@ -142,4 +142,55 @@ html.dark [class*="animate"],
 html.dark [class*="transition-all"],
 html.dark [class*="transition-transform"] {
   transition-duration: unset;
+}
+
+/* ═══════════════════════════════════════════════════
+   SERVICE CARD ANIMATIONS
+   ═══════════════════════════════════════════════════ */
+
+/* ── Service page — no keyframe animations ── */
+
+/* ─── Card ─── */
+.svc-card {
+  /* no animation */
+}
+
+/* ─── Stat & Step — always visible, no animation ─── */
+.svc-stat {
+  opacity: 1;
+}
+.svc-step {
+  opacity: 1;
+}
+
+/* ─── Service card CSS hover (replaces JS handlers) ─── */
+.svc-card {
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.svc-card:hover {
+  box-shadow: 0 24px 60px var(--svc-hover-shadow, rgba(0,0,0,0.14)),
+              0 8px 20px var(--svc-hover-shadow-sm, rgba(0,0,0,0.08)) !important;
+  transform: translateY(-6px) scale(1.01);
+}
+
+/* ─── Stat card CSS hover ─── */
+.svc-stat {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+.svc-stat:hover {
+  box-shadow: 0 8px 32px rgba(0,146,130,0.14) !important;
+  border-color: rgba(0,146,130,0.30) !important;
+}
+
+/* ─── Step card CSS hover ─── */
+.svc-step-inner {
+  transition: box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.svc-step-inner:hover {
+  box-shadow: 0 12px 36px rgba(0,146,130,0.13) !important;
+  border-color: rgba(0,146,130,0.35) !important;
+  transform: translateY(-4px);
+}
+.svc-step-inner:hover .svc-step-topline {
+  opacity: 1 !important;
 }

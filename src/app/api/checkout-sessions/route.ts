@@ -1,10 +1,10 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { headers } from 'next/headers'
 import { stripe } from '../../../lib/stripe'
 
-export async function POST(request) {
+export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const body: any = await request.json();
     const { propertyId, propertyTitle, monthlyRent, userName, email, phone, bookingDate, additionalNotes } = body;
     
     const headersList = await headers()
@@ -29,7 +29,7 @@ export async function POST(request) {
                 name: propertyTitle || 'RentDesh Service',
                 description: isSubscription ? 'Owner Subscription Plan' : `Booking for ${propertyTitle || 'Property'}`,
               },
-              unit_amount: Number(monthlyRent) * 100,
+              unit_amount: Math.round(Number(String(monthlyRent || 0).replace(/,/g, '')) * 100) || 0,
             },
             quantity: 1,
           },
@@ -46,7 +46,7 @@ export async function POST(request) {
       });
 
     return NextResponse.json({ url: session.url });
-  } catch (err) {
+  } catch (err: any) {
     console.error("Stripe Session Creation Error:", err);
     return NextResponse.json(
       { error: err.message },
