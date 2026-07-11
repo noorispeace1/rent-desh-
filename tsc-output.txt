@@ -1,0 +1,219 @@
+src/app/auth/signup/page.tsx(56,9): error TS2353: Object literal may only specify known properties, and 'role' does not exist in type 'Prettify<{ email: string; name: string; password: string; image?: string; callbackURL?: string; fetchOptions?: ClientFetchOption<Partial<{ name: string; email: string; password: string; image?: string; callbackURL?: string; rememberMe?: boolean; }> & Record<...>, Partial<...> & Record<...>, Record<...>>; }>'.
+src/app/blog/[id]/page.tsx(11,43): error TS2339: Property 'id' does not exist on type 'unknown'.
+src/app/blog/[id]/page.tsx(142,35): error TS2304: Cannot find name 'ArrowRight'.
+src/app/dashboard/admin/bookings/page.tsx(18,31): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/app/dashboard/admin/bookings/page.tsx(18,55): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/app/dashboard/admin/bookings/page.tsx(111,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/admin/bookings/page.tsx(120,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/admin/properties/page.tsx(248,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/admin/transactions/page.tsx(114,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/admin/users/page.tsx(36,29): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/admin/users/page.tsx(106,54): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/layout.tsx(80,25): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/layout.tsx(80,63): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/analytics/page.tsx(139,36): error TS2739: Type '{}' is missing the following properties from type '{ active: any; payload: any; label: any; }': active, payload, label
+src/app/dashboard/owner/analytics/page.tsx(218,63): error TS2739: Type '{}' is missing the following properties from type '{ active: any; payload: any; label: any; }': active, payload, label
+src/app/dashboard/owner/bookings/page.tsx(14,21): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/bookings/page.tsx(18,95): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/bookings/page.tsx(33,16): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/bookings/page.tsx(58,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/owner/bookings/page.tsx(67,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/owner/page.tsx(153,75): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/page.tsx(206,34): error TS2739: Type '{}' is missing the following properties from type '{ active: any; payload: any; label: any; }': active, payload, label
+src/app/dashboard/owner/properties/page.tsx(27,18): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/properties/page.tsx(35,95): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/transactions/page.tsx(15,37): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/transactions/page.tsx(16,33): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/owner/transactions/page.tsx(116,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/page.tsx(19,29): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(19,18): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(21,23): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(22,24): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(23,26): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(24,22): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(37,17): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(41,24): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/profile/page.tsx(177,23): error TS2322: Type 'string' is not assignable to type 'number'.
+src/app/dashboard/subscription/page.tsx(51,19): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/subscription/page.tsx(76,29): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/subscription/page.tsx(77,26): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/subscription/page.tsx(237,34): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/subscription/page.tsx(248,34): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/favorites/page.tsx(14,37): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/favorites/page.tsx(15,30): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/my-bookings/[id]/page.tsx(77,26): error TS2741: Property 'onToggle' is missing in type '{ propertyId: any; initialIsFavorited: any; }' but required in type '{ propertyId: any; initialIsFavorited: any; onToggle: any; }'.
+src/app/dashboard/tenant/my-bookings/info/[id]/page.tsx(126,25): error TS2322: Type '{ children: Element[]; "aria-label": string; shadow: string; classNames: { wrapper: string; th: string; td: string; tr: string; }; }' is not assignable to type 'IntrinsicAttributes & TableRootProps<"div"> & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof TableRootProps<...>>'.
+  Property 'shadow' does not exist on type 'IntrinsicAttributes & TableRootProps<"div"> & Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, keyof TableRootProps<...>>'.
+src/app/dashboard/tenant/my-bookings/page.tsx(28,37): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/my-bookings/page.tsx(29,25): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/review/page.tsx(19,37): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/review/page.tsx(20,25): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/review/page.tsx(73,29): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/review/page.tsx(74,26): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/dashboard/tenant/review/page.tsx(83,27): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/page.tsx(99,20): error TS2741: Property 'onToggle' is missing in type '{ propertyId: string; initialIsFavorited: boolean; }' but required in type '{ propertyId: any; initialIsFavorited: any; onToggle: any; }'.
+src/app/properties/page.tsx(56,20): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/properties/page.tsx(57,98): error TS2339: Property 'user' does not exist on type 'never'.
+src/app/properties/page.tsx(175,18): error TS2741: Property 'onToggle' is missing in type '{ propertyId: any; initialIsFavorited: boolean; }' but required in type '{ propertyId: any; initialIsFavorited: any; onToggle: any; }'.
+src/app/services/page.tsx(309,19): error TS2353: Object literal may only specify known properties, and '"--svc-c1"' does not exist in type 'Properties<string | number, string & {}>'.
+src/component/dashboard/BookingModalButton.tsx(20,18): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/BookingModalButton.tsx(21,27): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/BookingModalButton.tsx(22,24): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/BookingModalButton.tsx(34,19): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/BookingModalButton.tsx(86,25): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/DashboardSidebar.tsx(110,28): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/FavoriteButton.tsx(21,19): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/FavoriteButton.tsx(40,27): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/owner/AddPropertyForm.tsx(98,28): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/owner/AddPropertyForm.tsx(99,27): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/owner/AddPropertyForm.tsx(106,30): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/owner/AddPropertyForm.tsx(110,49): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/dashboard/owner/AddPropertyForm.tsx(321,13): error TS2322: Type 'string' is not assignable to type 'number'.
+src/component/dashboard/owner/PropertiseFilter.tsx(7,59): error TS2339: Property 'location' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(8,67): error TS2339: Property 'propertyType' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(9,59): error TS2339: Property 'minPrice' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(10,59): error TS2339: Property 'maxPrice' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(14,24): error TS2339: Property 'location' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(14,75): error TS2339: Property 'location' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(15,24): error TS2339: Property 'propertyType' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(15,83): error TS2339: Property 'propertyType' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(16,24): error TS2339: Property 'minPrice' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(16,75): error TS2339: Property 'minPrice' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(17,24): error TS2339: Property 'maxPrice' does not exist on type '{}'.
+src/component/dashboard/owner/PropertiseFilter.tsx(17,75): error TS2339: Property 'maxPrice' does not exist on type '{}'.
+src/component/Footer.tsx(80,17): error TS2322: Type '"bordered"' is not assignable to type '"primary" | "secondary"'.
+src/component/Footer.tsx(82,17): error TS2322: Type 'string' is not assignable to type 'number'.
+src/component/Footer.tsx(88,17): error TS2322: Type '{ children: Element; isIconOnly: true; size: "md"; radius: string; className: string; "aria-label": string; }' is not assignable to type 'IntrinsicAttributes & ButtonRootProps'.
+  Property 'radius' does not exist on type 'IntrinsicAttributes & ButtonRootProps'.
+src/component/Footer.tsx(98,23): error TS2322: Type '{ children: Element; as: ForwardRefExoticComponent<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> & LinkProps<any> & { ...; } & RefAttributes<...>>; ... 4 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonRootProps'.
+  Property 'as' does not exist on type 'IntrinsicAttributes & ButtonRootProps'.
+src/component/Footer.tsx(101,23): error TS2322: Type '{ children: Element; as: ForwardRefExoticComponent<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> & LinkProps<any> & { ...; } & RefAttributes<...>>; ... 4 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonRootProps'.
+  Property 'as' does not exist on type 'IntrinsicAttributes & ButtonRootProps'.
+src/component/Footer.tsx(104,23): error TS2322: Type '{ children: Element; as: ForwardRefExoticComponent<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> & LinkProps<any> & { ...; } & RefAttributes<...>>; ... 4 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonRootProps'.
+  Property 'as' does not exist on type 'IntrinsicAttributes & ButtonRootProps'.
+src/component/Footer.tsx(107,23): error TS2322: Type '{ children: Element; as: ForwardRefExoticComponent<Omit<AnchorHTMLAttributes<HTMLAnchorElement>, keyof LinkProps<any>> & LinkProps<any> & { ...; } & RefAttributes<...>>; ... 4 more ...; className: string; }' is not assignable to type 'IntrinsicAttributes & ButtonRootProps'.
+  Property 'as' does not exist on type 'IntrinsicAttributes & ButtonRootProps'.
+src/component/Navbar.tsx(59,28): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(215,36): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(215,114): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(221,32): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(238,42): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(238,120): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(244,99): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(245,89): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(247,40): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(348,36): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(348,114): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(354,81): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Navbar.tsx(355,83): error TS2339: Property 'user' does not exist on type 'never'.
+src/component/Section.tsx(168,9): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(190,31): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(206,9): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(226,25): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(257,9): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(271,25): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(313,9): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(329,27): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(346,9): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/component/Section.tsx(360,25): error TS2322: Type '{ hidden: { opacity: number; y: number; }; visible: { opacity: number; y: number; transition: { duration: number; ease: string; }; }; }' is not assignable to type 'Variants'.
+  Property 'visible' is incompatible with index signature.
+    Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'Variant'.
+      Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type 'TargetAndTransition'.
+        Type '{ opacity: number; y: number; transition: { duration: number; ease: string; }; }' is not assignable to type '{ transition?: Transition<any>; transitionEnd?: ResolvedValues$1; }'.
+          Types of property 'transition' are incompatible.
+            Type '{ duration: number; ease: string; }' is not assignable to type 'Transition<any>'.
+              Type '{ duration: number; ease: string; }' is not assignable to type 'TransitionWithValueOverrides<any>'.
+                Type '{ duration: number; ease: string; }' is not assignable to type 'ValueAnimationTransition<any>'.
+                  Types of property 'ease' are incompatible.
+                    Type 'string' is not assignable to type 'Easing | Easing[]'.
+src/lib/auth.ts(29,9): error TS2353: Object literal may only specify known properties, and 'default' does not exist in type 'DBFieldAttribute'.
